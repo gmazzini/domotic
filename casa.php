@@ -266,7 +266,7 @@ for(;;){
       }
     }
   }
-
+  
   // command analysis
   $client=@socket_accept($sock);
   $ext_ip="";
@@ -279,133 +279,134 @@ for(;;){
     $mycmd=substr($aux,$instart,$inlen);
     $in=explode("/",$mycmd);
     if($in[1]!=$passwd){
-       $mytext.="Wrong Password\n";
+      $mytext.="Wrong Password\n";
     }
     else {
       switch($in[2]){
-
-      case "status":
-	$mytext.="Casa_v:$casa_version Rule_v:$config_version #rules:$nact\n";
-	$mytext.="hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
-	$mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."\n";
-	$count=0;
-	for($r=0;$r<48;$r++){
-	  $mytext.=sprintf("%02d:%d ",$r,$rele[$r]);
-	  if($rele[$r]){
-	    $count++;
-	  }
-	  if($r%6==5){
-	    $mytext.="\n";
-	  }
-	}
-	$mytext.="Total On: $count\n";
-	break;
-
-      case "keystatus":
-	$count=0;
-	for($nn=0;$nn<48;$nn++){
-	  $mm=key_checkstatus($nn);
-	  $mytext.=sprintf("%02d:%d ",$nn,$mm);
-	  if($mm){
-	    $count++;
-	  }
-	  if($nn%6==5){
-	    $mytext.="\n";
-	  }
-	}
-	$mytext.="Total ups: $count\n";
-	break;
-
-    case "inject":
-	$puls=(int)$in[3];
-	$key_number[$nkey]=$puls;
-	$key_time[$nkey]=mytime_up();
-	$key_state[$nkey]=1;
-	$nkey++;
-	$inject_key[$inject_last]=$puls;
-	$inject_last++;
-	$mytext.="Inject key $puls\n";
-	break;
-
-      case "set":
-	myreleset((int)$in[3],1);
-	$mytext.="Set rele $in[3]\n";
-	break;
-
-      case "reset":
-	myreleset((int)$in[3],0);
-	$mytext.="Reset rele $in[3]\n";
-	break;
-	
-      case "delete":
-	$act[(int)$in[3]][0]=-1;
-	$mytext.="Delete rule $in[3]\n";
-	break;
-
-      case "switchoff":
-	for($r=0;$r<48;$r++){
-	  myreleset($r,0);
-	}
-	$mytext.="Reset rele all\n";
-	break;
-
-      case "rule":
-	for($n=0;$n<$nact;$n++){
-	  switch($act[$n][0]){
-	  case -1: 
-	    $mytext.=sprintf("Rule: %02d Type: delete\n\n",$n);
-	    break;
-
-	  case 0:
-	    $nn=$act[$n][3];
-	    $mm=$act[$n][4+$nn];
-	    $qq=$act[$n][5+$mm+$nn];
-	    $mytext.=sprintf("Rule: %02d Type: 3level Name: %s\n",$n,$act[$n][6+$nn+$mm+$qq]);
-	    $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-	    $mytext.=sprintf("Key #:%02d",$nn);
-	    for($cn=0;$cn<$nn;$cn++){
-	      $mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
-	    }
-	    $mytext.="\n";
-	    $mytext.=sprintf("Rele_A #:%02d",$mm);
-	    for($cm=0;$cm<$mm;$cm++){
-	      $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
-	    }
-	    $mytext.="\n";
-	    $mytext.=sprintf("Rele_B #:%02d",$qq);
-	    for($cq=0;$cq<$qq;$cq++){
-	      $mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
-	    }
-	    $mytext.="\n\n";
-	    break;
-
-	  case 1:
-	  case 2:
-	  case 3:
-	  case 8:
-	    $nn=$act[$n][3];
-	    $mm=$act[$n][4+$nn];
-	    $mytext.=sprintf("Rule: %02d Type: ",$n);
-	    if($act[$n][0]==1)$mytext.=sprintf("onoff ");
-	    else if($act[$n][0]==2)$mytext.=sprintf("on ");
-	    else if($act[$n][0]==3)$mytext.=sprintf("off ");
-	    else if($act[$n][0]==8)$mytext.=sprintf("push ");
-	    $mytext.=sprintf("Name: %s\n",$act[$n][5+$nn+$mm]);
-	    $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-	    $mytext.=sprintf("Key #:%02d",$nn);
-	    for($cn=0;$cn<$nn;$cn++){
-	      $mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
-	    }
-	    $mytext.="\n";
-	    $mytext.=sprintf("Rele #:%02d",$mm);
-	    for($cm=0;$cm<$mm;$cm++){
-	      $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
-	    }
-	    $mytext.="\n\n";
-	    break;
-
-	  case 4:
-	    $nn=$act[$n][3];
+        
+        case "status":
+          $mytext.="Casa_v:$casa_version Rule_v:$config_version #rules:$nact\n";
+          $mytext.="hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
+          $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."\n";
+          $count=0;
+          for($r=0;$r<48;$r++){
+            $mytext.=sprintf("%02d:%d ",$r,$rele[$r]);
+            if($rele[$r]){
+              $count++;
+            }
+            if($r%6==5){
+              $mytext.="\n";
+            }
+          }
+          $mytext.="Total On: $count\n";
+          break;
+          
+        case "keystatus":
+          $count=0;
+          for($nn=0;$nn<48;$nn++){
+            $mm=key_checkstatus($nn);
+            $mytext.=sprintf("%02d:%d ",$nn,$mm);
+            if($mm){
+              $count++;
+            }
+            if($nn%6==5){
+              $mytext.="\n";
+            }
+          }
+          $mytext.="Total ups: $count\n";
+          break;
+          
+        case "inject":
+          $puls=(int)$in[3];
+          $key_number[$nkey]=$puls;
+          $key_time[$nkey]=mytime_up();
+          $key_state[$nkey]=1;
+          $nkey++;
+          $inject_key[$inject_last]=$puls;
+          $inject_last++;
+          $mytext.="Inject key $puls\n";
+          break;
+          
+        case "set":
+          myreleset((int)$in[3],1);
+          $mytext.="Set rele $in[3]\n";
+          break;
+          
+        case "reset":
+          myreleset((int)$in[3],0);
+          $mytext.="Reset rele $in[3]\n";
+          break;
+          
+        case "delete":
+          $act[(int)$in[3]][0]=-1;
+          $mytext.="Delete rule $in[3]\n";
+          break;
+          
+        case "switchoff":
+          for($r=0;$r<48;$r++){
+            myreleset($r,0);
+          }
+          $mytext.="Reset rele all\n";
+          break;
+          
+        case "rule":
+          for($n=0;$n<$nact;$n++){
+            switch($act[$n][0]){
+              
+              case -1:
+                $mytext.=sprintf("Rule: %02d Type: delete\n\n",$n);
+                break;
+              
+              case 0:
+                $nn=$act[$n][3];
+                $mm=$act[$n][4+$nn];
+                $qq=$act[$n][5+$mm+$nn];
+                $mytext.=sprintf("Rule: %02d Type: 3level Name: %s\n",$n,$act[$n][6+$nn+$mm+$qq]);
+                $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
+                $mytext.=sprintf("Key #:%02d",$nn);
+                for($cn=0;$cn<$nn;$cn++){
+                  $mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
+                }
+                $mytext.="\n";
+                $mytext.=sprintf("Rele_A #:%02d",$mm);
+                for($cm=0;$cm<$mm;$cm++){
+                  $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                }
+                $mytext.="\n";
+                $mytext.=sprintf("Rele_B #:%02d",$qq);
+                for($cq=0;$cq<$qq;$cq++){
+                  $mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
+                }
+                $mytext.="\n\n";
+                break;
+               
+              case 1:
+              case 2:
+              case 3:
+              case 8:
+                $nn=$act[$n][3];
+                $mm=$act[$n][4+$nn];
+                $mytext.=sprintf("Rule: %02d Type: ",$n);
+                if($act[$n][0]==1)$mytext.=sprintf("onoff ");
+                else if($act[$n][0]==2)$mytext.=sprintf("on ");
+                else if($act[$n][0]==3)$mytext.=sprintf("off ");
+                else if($act[$n][0]==8)$mytext.=sprintf("push ");
+                $mytext.=sprintf("Name: %s\n",$act[$n][5+$nn+$mm]);
+                $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
+                $mytext.=sprintf("Key #:%02d",$nn);
+                for($cn=0;$cn<$nn;$cn++){
+                  $mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
+                }
+                $mytext.="\n";
+                $mytext.=sprintf("Rele #:%02d",$mm);
+                for($cm=0;$cm<$mm;$cm++){
+                  $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                }
+                $mytext.="\n\n";
+                break;
+                
+              case 4:
+                $nn=$act[$n][3];
             $mm=$act[$n][4+$nn];
 	    $mytext.=sprintf("Rule: %02d Type: alloff Name: %s\n",$n,$act[$n][5+$nn+$mm]);
 	    $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
