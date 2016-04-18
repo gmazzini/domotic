@@ -11,7 +11,7 @@
 // Conf 1=Input 0=Output 
 // virtualkey 48-63
 
-$casa_version="31";
+$casa_version="32";
 
 // multiple output
 function multiout($port,$val){
@@ -108,7 +108,7 @@ fprintf($fplog,"Starting on %s\n",mytime_print(mytime_up()));
 // open communications
 $sock=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_set_option($sock,SOL_SOCKET,SO_REUSEADDR,1);
-socket_bind($sock,"10.0.0.1",3333);
+socket_bind($sock,"10.0.0.2",3333);
 socket_listen($sock);
 socket_set_nonblock($sock);
 for($dev=0;$dev<4;$dev++){
@@ -149,7 +149,7 @@ multiout(0x4a,0x00);
 $hhmm=mytime_hhmm();
 
 for(;;){
-
+  
   // key scan
   $inlow=multiin(0x47);
   $inhigh=multiin(0x44);
@@ -163,17 +163,17 @@ for(;;){
     $diff=$inkey[$dev] ^ $oldin[$dev];
     if($diff){
       for($key=0;$key<12;$key++){
-	if($diff & $maskin[$key]){
-	  $key_number[$nkey]=$key+$dev*12;
-	  $key_time[$nkey]=mytime_up();
-	  if($inkey[$dev] & $maskin[$key]){
-	    $key_state[$nkey]=0;
-	  }
-	  else {
-	    $key_state[$nkey]=1;
-	  }
-	  $nkey++; 
-	}
+        if($diff & $maskin[$key]){
+          $key_number[$nkey]=$key+$dev*12;
+          $key_time[$nkey]=mytime_up();
+          if($inkey[$dev] & $maskin[$key]){
+            $key_state[$nkey]=0;
+          }
+          else {
+            $key_state[$nkey]=1;
+          }
+          $nkey++;
+        }
       }
       $oldin[$dev]=$inkey[$dev];
     }
@@ -318,7 +318,7 @@ for(;;){
 	$mytext.="Total ups: $count\n";
 	break;
 
-      case "inject":
+    case "inject":
 	$puls=(int)$in[3];
 	$key_number[$nkey]=$puls;
 	$key_time[$nkey]=mytime_up();
