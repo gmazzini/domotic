@@ -181,7 +181,7 @@ for(;;){
 
   // post inject key release
   if($inject_last){
-    for($i=0;$i<$inject_last;$i++){
+  	for($i=0;$i<$inject_last;$i++){
       $key_number[$nkey]=$inject_key[$i];
       $key_time[$nkey]=mytime_up();
       $key_state[$nkey]=0;
