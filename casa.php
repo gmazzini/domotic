@@ -407,110 +407,109 @@ for(;;){
                 
               case 4:
                 $nn=$act[$n][3];
-            $mm=$act[$n][4+$nn];
-	    $mytext.=sprintf("Rule: %02d Type: alloff Name: %s\n",$n,$act[$n][5+$nn+$mm]);
-	    $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-	    $mytext.=sprintf("Key #:%02d",$nn);
-	    for($cn=0;$cn<$nn;$cn++){
-	      $mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
-	    }
-	    $mytext.="\n";
-            $mytext.=sprintf("Rele #:%02d",$mm);
-            for($cm=0;$cm<$mm;$cm++){
-              $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                $mm=$act[$n][4+$nn];
+                $mytext.=sprintf("Rule: %02d Type: alloff Name: %s\n",$n,$act[$n][5+$nn+$mm]);
+                $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
+                $mytext.=sprintf("Key #:%02d",$nn);
+                for($cn=0;$cn<$nn;$cn++){
+                  $mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
+                }
+                $mytext.="\n";
+                $mytext.=sprintf("Rele #:%02d",$mm);
+                for($cm=0;$cm<$mm;$cm++){
+                  $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                }
+                $mytext.="\n\n";
+                break;
+                
+              case 6:
+                $mytext.=sprintf("Rule: %02d Type: injectifoff Name: %s\n",$n,$act[$n][5]);
+                $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
+                $mytext.=sprintf("Key: %02d Releifoff %02d\n\n",$act[$n][3],$act[$n][4]);
+                break;
+                
+              case 7:
+                $mytext.=sprintf("Rule: %02d Type: injectifon Name: %s\n",$n,$act[$n][5]);
+                $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
+                $mytext.=sprintf("Key: %02d Releifon %02d\n\n",$act[$n][3],$act[$n][4]);
+                break;
+                
+              case 9:
+                $mytext.=sprintf("Rule: %02d Type: offtimed Name: %s\n",$n,$act[$n][5]);
+                $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
+                $mytext.=sprintf("Releoff: %02d After(min): %02d\n\n",$act[$n][3],$act[$n][4]);
+                break;
+                
+              case 10:
+                $nn=$act[$n][3];
+                $mytext.=sprintf("Rule: %02d Type: offtimed_keysup Name: %s\n",$n,$act[$n][6+$nn]);
+                $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
+                $mytext.=sprintf("Releoff: %02d After(min): %02d\n",$act[$n][4+$nn],$act[$n][5+$nn]);
+                $mytext.=sprintf("Key #:%02d",$nn);
+                for($cn=0;$cn<$nn;$cn++){
+                  $mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
+                }
+                $mytext.="\n\n";
+                break;
             }
-	    $mytext.="\n\n";
-	    break;
-
-	  case 6: 
-	    $mytext.=sprintf("Rule: %02d Type: injectifoff Name: %s\n",$n,$act[$n][5]);
-	    $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-	    $mytext.=sprintf("Key: %02d Releifoff %02d\n\n",$act[$n][3],$act[$n][4]);
-	    break;
-
-	  case 7: 
-	    $mytext.=sprintf("Rule: %02d Type: injectifon Name: %s\n",$n,$act[$n][5]);
-	    $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-	    $mytext.=sprintf("Key: %02d Releifon %02d\n\n",$act[$n][3],$act[$n][4]);
-	    break;
-
-	  case 9: 
-	    $mytext.=sprintf("Rule: %02d Type: offtimed Name: %s\n",$n,$act[$n][5]);
-	    $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-	    $mytext.=sprintf("Releoff: %02d After(min): %02d\n\n",$act[$n][3],$act[$n][4]);
-	    break;
-
-	  case 10:
-	    $nn=$act[$n][3];
-	    $mytext.=sprintf("Rule: %02d Type: offtimed_keysup Name: %s\n",$n,$act[$n][6+$nn]);
-	    $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-	    $mytext.=sprintf("Releoff: %02d After(min): %02d\n",$act[$n][4+$nn],$act[$n][5+$nn]);
-	    $mytext.=sprintf("Key #:%02d",$nn);
-	    for($cn=0;$cn<$nn;$cn++){
-	      $mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
-	    }
-	    $mytext.="\n\n";
-	    break;
-
-	  }
-	}
-	break;
-
-      case "key":
-	for($n=0;$n<64;$n++){
-	  $ww[$n]=0;
-	}
-	for($n=0;$n<$nact;$n++){
-          $myaa=$act[$n][0];
-	  if($myaa==-1||$myaa==6||$myaa==7||$myaa==9)continue;
-	  $nn=$act[$n][3];
-	  for($qq=0;$qq<$nn;$qq++){
-	    $kk=$act[$n][4+$qq];
-	    $www[$kk][$ww[$kk]]=$n;
-	    $ww[$kk]++;  
-	  }
-	}
-	for($n=0;$n<64;$n++){
-	  $mytext.=sprintf("Key #:%02d",$n);
-	  $nn=$ww[$n];
-	  for($cn=0;$cn<$nn;$cn++){
-	    $mytext.=sprintf(" %02d:%02d",$cn,$www[$n][$cn]);
-	  }
-	  $mytext.="\n";
-	}
-	break;
-
-      case "log":
-	$fpout=popen("tail -n $in[3] $mylog", 'r');
-	while(!feof($fpout)){
-	  $mytext.=fgets($fpout);
-	}
-	pclose($fpout);
-	break;
-
-      case "reload":
-	myconfig();
-	$mytext.="Load Rule_v:$config_version #rules:$nact\n";
-	break;
-
-      case "help":
-	$mytext.="/passwd/status show the status\n";
-	$mytext.="/passwd/keystatus show the keys status\n";
-	$mytext.="/passwd/inject/n inject key n\n";
-	$mytext.="/passwd/set/n set rele n\n";
-	$mytext.="/passwd/reset/n reset rele n\n";
-	$mytext.="/passwd/switchoff reset all the rele\n";
-	$mytext.="/passwd/rule display actual rules\n";
-	$mytext.="/passwd/key display key mapping on rules\n";
-	$mytext.="/passwd/log/n log last n lines\n";
-	$mytext.="/passwd/reload reload configuration\n";
-	$mytext.="/passwd/delete/n delete rule n\n";
-	$mytext.="/passwd/help this help\n";
-	break;
-
-      default:
-	$mytext.="Wrong command\n";
-	break;
+          }
+          break;
+          
+        case "key":
+          for($n=0;$n<64;$n++){
+            $ww[$n]=0;
+          }
+          for($n=0;$n<$nact;$n++){
+            $myaa=$act[$n][0];
+            if($myaa==-1||$myaa==6||$myaa==7||$myaa==9)continue;
+            $nn=$act[$n][3];
+            for($qq=0;$qq<$nn;$qq++){
+              $kk=$act[$n][4+$qq];
+              $www[$kk][$ww[$kk]]=$n;
+              $ww[$kk]++;
+            }
+          }
+          for($n=0;$n<64;$n++){
+            $mytext.=sprintf("Key #:%02d",$n);
+            $nn=$ww[$n];
+            for($cn=0;$cn<$nn;$cn++){
+              $mytext.=sprintf(" %02d:%02d",$cn,$www[$n][$cn]);
+            }
+            $mytext.="\n";
+          }
+          break;
+          
+        case "log":
+          $fpout=popen("tail -n $in[3] $mylog", 'r');
+          while(!feof($fpout)){
+            $mytext.=fgets($fpout);
+          }
+          pclose($fpout);
+          break;
+          
+        case "reload":
+          myconfig();
+          $mytext.="Load Rule_v:$config_version #rules:$nact\n";
+          break;
+          
+        case "help":
+          $mytext.="/passwd/status show the status\n";
+          $mytext.="/passwd/keystatus show the keys status\n";
+          $mytext.="/passwd/inject/n inject key n\n";
+          $mytext.="/passwd/set/n set rele n\n";
+          $mytext.="/passwd/reset/n reset rele n\n";
+          $mytext.="/passwd/switchoff reset all the rele\n";
+          $mytext.="/passwd/rule display actual rules\n";
+          $mytext.="/passwd/key display key mapping on rules\n";
+          $mytext.="/passwd/log/n log last n lines\n";
+          $mytext.="/passwd/reload reload configuration\n";
+          $mytext.="/passwd/delete/n delete rule n\n";
+          $mytext.="/passwd/help this help\n";
+          break;
+          
+        default:
+          $mytext.="Wrong command\n";
+          break;
       }
     }
     $mytext.="</pre></body></html>";
@@ -524,232 +523,229 @@ for(;;){
     socket_write($client,$mytext);
     socket_close($client);
   }
-
+  
   if($nkey){
-
     for($i=0;$i<$nkey;$i++){
       fprintf($fplog,"key: %02d %01d %s %s\n",$key_number[$i],$key_state[$i],mytime_print($key_time[$i]),$ext_ip);
     }
-
     // action analysis
     for($n=0;$n<$nact;$n++){
       switch($act[$n][0]){
-
+        
         // 3level
-      case 0:
-	if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
-	  break;
-	}
-	$nn=$act[$n][3];
-        $mm=$act[$n][4+$nn];
-        $qq=$act[$n][5+$mm+$nn];
-	for($i=4;$i<4+$nn;$i++){
-	  for($j=0;$j<$nkey;$j++){
-	    if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
-	      $aux=$key_time[$j]-$key_last0[$key_number[$j]];
-              $actm=0;
-              for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
-		if($rele[$act[$n][$cm]]){
-		  $actm++;
-		}
-	      }
-	      $actq=0;
-	      for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
-		if($rele[$act[$n][$cq]]){
-		  $actq++;
-		}
-	      }
-	      if($aux>$threelevels_time){
-		if($actm || $actq){
-		  for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
-		    myreleset($act[$n][$cm],0);
-		  }
-		  for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
-		    myreleset($act[$n][$cq],0);
-		  }
-		}
-		else {
-		  for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
-		    myreleset($act[$n][$cm],1);
-		  }
-		  for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
-		    myreleset($act[$n][$cq],1);
-		  }
-		}
-	      }
-	      else {
-		if($actm && $actq){
-		  for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
-		    myreleset($act[$n][$cm],1);
-		  }
-		  for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
-		    myreleset($act[$n][$cq],0);
-		  }
-		}
-		else if($actm && !$actq){
-		  for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
-		    myreleset($act[$n][$cm],0);
-		  }
-		  for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
-		    myreleset($act[$n][$cq],1);
-		  }
-		}
-		else if(!$actm && $actq){
-		  for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
-		    myreleset($act[$n][$cm],0);
-		  }
-		  for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
-		    myreleset($act[$n][$cq],0);
-		  }
-		}
-		else if(!$actm && !$actq){
-		  for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
-		    myreleset($act[$n][$cm],1);
-		  }
-		  for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
-		    myreleset($act[$n][$cq],1);
-		  }
-		}
-	      }
-	    }
-	  }
-	}
-	break;
-
-	// onoff
-      case 1:
-	if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
-	  break;
-	}
-	$nn=$act[$n][3];
-        $mm=$act[$n][4+$nn];
-	for($i=4;$i<4+$nn;$i++){
-	  for($j=0;$j<$nkey;$j++){
-	    if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
-	      $actk=0;
-	      for($k=5+$nn;$k<5+$nn+$mm;$k++){
-		$actk+=$rele[$act[$n][$k]];
-	      }
-	      if($actk!=$mm){
-		for($k=5+$nn;$k<5+$nn+$mm;$k++){
-		  myreleset($act[$n][$k],1);
-		}
-	      }
-	      else {
-		for($k=5+$nn;$k<5+$nn+$mm;$k++){
-		  myreleset($act[$n][$k],0);
-		}
-	      }
-	    }
-	  }
-	}
-	break;
-
-	// on
-      case 2:
-	if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
-	  break;
-	}
-	$nn=$act[$n][3];
-        $mm=$act[$n][4+$nn];
-	for($i=4;$i<4+$nn;$i++){
-	  for($j=0;$j<$nkey;$j++){
-	    if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
-	      for($k=5+$nn;$k<5+$nn+$mm;$k++){
-		myreleset($act[$n][$k],1);
-	      }
-	    }
-	  }
-	}
-	break;
-
-	// off
-      case 3:
-	if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
-	  break;
-	}
-	$nn=$act[$n][3];
-        $mm=$act[$n][4+$nn];
-	for($i=4;$i<4+$nn;$i++){
-	  for($j=0;$j<$nkey;$j++){
-	    if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
-	      for($k=5+$nn;$k<5+$nn+$mm;$k++){
-		myreleset($act[$n][$k],0);
-	      }
-	    }
-	  }
-	}
-	break;
-
-	// alloff
-      case 4:
-        if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
-          break;
-       	}
-        $nn=$act[$n][3];
-        $mm=$act[$n][4+$nn];
-        for($i=4;$i<4+$nn;$i++){
-          for($j=0;$j<$nkey;$j++){
-            if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
-	      for($r=0;$r<48;$r++){
-	        for($k=5+$nn;$k<5+$nn+$mm;$k++){
-		  if($r==$act[$n][$k])continue 2;
-		}
-                myreleset($r,0);
+        case 0:
+          if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
+            break;
+          }
+          $nn=$act[$n][3];
+          $mm=$act[$n][4+$nn];
+          $qq=$act[$n][5+$mm+$nn];
+          for($i=4;$i<4+$nn;$i++){
+            for($j=0;$j<$nkey;$j++){
+              if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
+                $aux=$key_time[$j]-$key_last0[$key_number[$j]];
+                $actm=0;
+                for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
+                  if($rele[$act[$n][$cm]]){
+                    $actm++;
+                  }
+                }
+                $actq=0;
+                for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
+                  if($rele[$act[$n][$cq]]){
+                    $actq++;
+                  }
+                }
+                if($aux>$threelevels_time){
+                  if($actm || $actq){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
+                      myreleset($act[$n][$cm],0);
+                    }
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
+                      myreleset($act[$n][$cq],0);
+                    }
+                  }
+                  else {
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
+                      myreleset($act[$n][$cm],1);
+                    }
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
+                      myreleset($act[$n][$cq],1);
+                    }
+                  }
+                }
+                else {
+                  if($actm && $actq){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
+                      myreleset($act[$n][$cm],1);
+                    }
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
+                      myreleset($act[$n][$cq],0);
+                    }
+                  }
+                  else if($actm && !$actq){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
+                      myreleset($act[$n][$cm],0);
+                    }
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
+                      myreleset($act[$n][$cq],1);
+                    }
+                  }
+                  else if(!$actm && $actq){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
+                      myreleset($act[$n][$cm],0);
+                    }
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
+                      myreleset($act[$n][$cq],0);
+                    }
+                  }
+                  else if(!$actm && !$actq){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++){
+                      myreleset($act[$n][$cm],1);
+                    }
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++){
+                      myreleset($act[$n][$cq],1);
+                    }
+                  }
+                }
               }
             }
           }
-        }
-        break;
-
-	// push
-   case 8:
-	if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
-	  break;
-	}
-	$nn=$act[$n][3];
-        $mm=$act[$n][4+$nn];
-	$actk=0;
-	$actp=0;
-	for($i=4;$i<4+$nn;$i++){
-	  for($j=0;$j<$nkey;$j++){
-	    if($act[$n][$i]==$key_number[$j]){
-	      $actk++;
-	      if($key_state[$j]){
-		$actp=1;
-	      }
-	    }
-	  }
-	}     
-	if($actk>0){
-	  for($k=5+$nn;$k<5+$nn+$mm;$k++){
-	    myreleset($act[$n][$k],$actp);
-	  }
-	}
-	break;
-
+          break;
+          
+        // onoff
+        case 1:
+          if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
+            break;
+          }
+          $nn=$act[$n][3];
+          $mm=$act[$n][4+$nn];
+          for($i=4;$i<4+$nn;$i++){
+            for($j=0;$j<$nkey;$j++){
+              if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
+                $actk=0;
+                for($k=5+$nn;$k<5+$nn+$mm;$k++){
+                  $actk+=$rele[$act[$n][$k]];
+                }
+                if($actk!=$mm){
+                  for($k=5+$nn;$k<5+$nn+$mm;$k++){
+                    myreleset($act[$n][$k],1);
+                  }
+                }
+                else {
+                  for($k=5+$nn;$k<5+$nn+$mm;$k++){
+                    myreleset($act[$n][$k],0);
+                  }
+                }
+              }
+            }
+          }
+          break;
+          
+        // on
+        case 2:
+          if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
+            break;
+          }
+          $nn=$act[$n][3];
+          $mm=$act[$n][4+$nn];
+          for($i=4;$i<4+$nn;$i++){
+            for($j=0;$j<$nkey;$j++){
+              if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
+                for($k=5+$nn;$k<5+$nn+$mm;$k++){
+                  myreleset($act[$n][$k],1);
+                }
+              }
+            }
+          }
+          break;
+          
+        // off
+        case 3:
+          if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
+            break;
+          }
+          $nn=$act[$n][3];
+          $mm=$act[$n][4+$nn];
+          for($i=4;$i<4+$nn;$i++){
+            for($j=0;$j<$nkey;$j++){
+              if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
+                for($k=5+$nn;$k<5+$nn+$mm;$k++){
+                  myreleset($act[$n][$k],0);
+                }
+              }
+            }
+          }
+          break;
+          
+        // alloff
+        case 4:
+          if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
+            break;
+          }
+          $nn=$act[$n][3];
+          $mm=$act[$n][4+$nn];
+          for($i=4;$i<4+$nn;$i++){
+            for($j=0;$j<$nkey;$j++){
+              if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
+                for($r=0;$r<48;$r++){
+                  for($k=5+$nn;$k<5+$nn+$mm;$k++){
+                    if($r==$act[$n][$k])continue 2;
+                  }
+                  myreleset($r,0);
+                }
+              }
+            }
+          }
+          break;
+          
+        // push
+        case 8:
+          if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2]){
+            break;
+          }
+          $nn=$act[$n][3];
+          $mm=$act[$n][4+$nn];
+          $actk=0;
+          $actp=0;
+          for($i=4;$i<4+$nn;$i++){
+            for($j=0;$j<$nkey;$j++){
+              if($act[$n][$i]==$key_number[$j]){
+                $actk++;
+                if($key_state[$j]){
+                  $actp=1;
+                }
+              }
+            }
+          }
+          if($actk>0){
+            for($k=5+$nn;$k<5+$nn+$mm;$k++){
+              myreleset($act[$n][$k],$actp);
+            }
+          }
+          break;
       }
     }
   }
-
+  
   // rele out
   for($dev=0;$dev<4;$dev++){
     $q[0]=$q[1]=0;
     $v[0]=$v[1]=0;
     for($i=0;$i<12;$i++){
       if($i<8){
-	$gr=0;
+        $gr=0;
       }
       else {
-	$gr=1;
+        $gr=1;
       }
       $j=$i+$dev*12;
       if($rele[$j]!=$rele_old[$j]){
-	fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
-	$q[$gr]++;
+        fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
+        $q[$gr]++;
       }
       if($rele[$j]){
-	$v[$gr]+=$maskin[$i-4*$gr];
+        $v[$gr]+=$maskin[$i-4*$gr];
       }
       $rele_old[$j]=$rele[$j];
     }
@@ -762,7 +758,7 @@ for(;;){
       usleep($mysleep);
     }
   }
-
+  
   // update last pression
   for($j=0;$j<$nkey;$j++){
     if($key_state[$j]==0){
@@ -772,7 +768,6 @@ for(;;){
       $key_last1[$key_number[$j]]=$key_time[$j];
     }
   }
-
 }
 
 ?>
