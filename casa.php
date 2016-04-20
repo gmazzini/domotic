@@ -76,7 +76,7 @@ function mytime_print($t){
   global $mytime_ref;
   $x1=$mytime_ref+(int)(((int)$t)/100);
   $x2=((int)$t)-100*((int)(((int)$t)/100));
-  return trim(shell_exec("date -d $x1 -D %s +%d-%m-%Y/%T")).".".sprintf("%02d",$x2);
+  return $x1."--".trim(shell_exec("date -d $x1 -D %s +%d-%m-%Y/%T")).".".sprintf("%02d",$x2);
 }
 
 // load configuration
