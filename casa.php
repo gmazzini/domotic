@@ -99,8 +99,6 @@ $threelevels_time=500;
 $mytime_ref=(int)shell_exec("date +%s")-(int)(mytime_up()/100);
 $hhmm_last=0;
 
-print "::::".$mytime_ref;
-
 myconfig();
 
 // Welcome
