@@ -11,7 +11,7 @@
 // Conf 1=Input 0=Output 
 // virtualkey 48-63
 
-$casa_version="32";
+$casa_version="33";
 
 // multiple output
 function multiout($port,$val){
@@ -65,9 +65,8 @@ function mytime_up(){
 
 // hours and minute
 function mytime_hhmm(){
-  $x1=shell_exec("date +%H.%M");
-  $x2[0]=(int)substr($x1,0,2);
-  $x2[1]=(int)substr($x1,3,2);
+  $x2[0]=(int)date("H");
+  $x2[1]=(int)date("i");
   return $x2;
 }
 
@@ -76,7 +75,7 @@ function mytime_print($t){
   global $mytime_ref;
   $x1=$mytime_ref+(int)(((int)$t)/100);
   $x2=((int)$t)-100*((int)(((int)$t)/100));
-  return trim(shell_exec("date -d $x1 -D %s +%d-%m-%Y/%T")).".".sprintf("%02d",$x2);
+  return date("d-m-Y/H:i:s",$x1).".".sprintf("%02d",$x2);
 }
 
 // load configuration
@@ -87,6 +86,7 @@ function myconfig(){
 }
 
 // initialization
+date_default_timezone_set("Europe/Rome");
 $mylog="/tmp/mnt/sda1/mylog";
 $fplog=fopen($mylog,"a+");
 $mysleep=20000;
@@ -96,7 +96,7 @@ $time_loop=0;
 $time_loop_lastrefresh=0;
 $inject_last=0;
 $threelevels_time=500;
-$mytime_ref=(int)shell_exec("date +%s")-(int)(mytime_up()/100);
+$mytime_ref=time()-(int)(mytime_up()/100);
 $hhmm_last=0;
 
 myconfig();
@@ -194,7 +194,7 @@ for(;;){
   $time_loop++;
   if($time_loop>$myloop){
     $time_loop=0;
-    $mytime_ref=(int)shell_exec("date +%s")-(int)(mytime_up()/100);
+    $mytime_ref=time()-(int)(mytime_up()/100);
     $time_loop_lastrefresh=mytime_up();
     $hhmm=mytime_hhmm();
     if($hhmm!=$hhmm_last){
