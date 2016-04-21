@@ -1,1 +1,2 @@
 curl -k https://raw.githubusercontent.com/gmazzini/domotic/master/casa.php > casa.php
+curl -k https://raw.githubusercontent.com/gmazzini/domotic/master/config.php > config.php
