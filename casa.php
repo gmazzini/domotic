@@ -98,6 +98,7 @@ $inject_last=0;
 $threelevels_time=500;
 $mytime_ref=time()-(int)(mytime_up()/100);
 $hhmm_last=0;
+include "/tmp/mnt/sda1/password.php";
 
 myconfig();
 
