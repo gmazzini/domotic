@@ -1,7 +1,7 @@
 #!/usr/bin/php -q
 <?php
 
-// device on 10.0.0.X with X=21 22 23 24 port 10001
+// device 1 2 3 4 on 10.0.0.X with X=21 22 23 24 port 10001
 // IN 09 10 11 12 17 18 19 20 21 22 23 24
 // OUT 01 02 03 04 05 06 07 08 13 14 15 16
 // A(01-08) B(09-16) C(17-24)
@@ -9,9 +9,11 @@
 // B_Read=44H B_Conf=45H B_Write=46H
 // C_Read=47H C_Conf=48H C_Write=4AH
 // Conf 1=Input 0=Output 
+// device 5 on 10.0.0.30 UDP 6723: on 48 11:0, off 48 21:0, on 49 12:0, off 49 22:0
 // virtualkey 48-63
 
-$casa_version="33";
+$casa_version="34";
+$totrele=50;
 
 // multiple output
 function multiout($port,$val){
@@ -122,7 +124,7 @@ for($dev=0;$dev<4;$dev++){
 }
 
 // data initialization
-for($r=0;$r<48;$r++){
+for($r=0;$r<$totrele;$r++){
   $rele_old[$r]=0;
   $rele[$r]=0;
   $rete_time[$r]=mytime_up();
@@ -290,7 +292,7 @@ for(;;){
           $mytext.="hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
           $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."\n";
           $count=0;
-          for($r=0;$r<48;$r++){
+          for($r=0;$r<$totrele;$r++){
             $mytext.=sprintf("%02d:%d ",$r,$rele[$r]);
             if($rele[$r]){
               $count++;
@@ -344,7 +346,7 @@ for(;;){
           break;
           
         case "switchoff":
-          for($r=0;$r<48;$r++){
+          for($r=0;$r<$totrele;$r++){
             myreleset($r,0);
           }
           $mytext.="Reset rele all\n";
@@ -689,7 +691,7 @@ for(;;){
           for($i=4;$i<4+$nn;$i++){
             for($j=0;$j<$nkey;$j++){
               if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
-                for($r=0;$r<48;$r++){
+                for($r=0;$r<$totrele;$r++){
                   for($k=5+$nn;$k<5+$nn+$mm;$k++){
                     if($r==$act[$n][$k])continue 2;
                   }
@@ -729,7 +731,7 @@ for(;;){
     }
   }
   
-  // rele out
+  // rele out on device 1 2 3 4
   for($dev=0;$dev<4;$dev++){
     $q[0]=$q[1]=0;
     $v[0]=$v[1]=0;
@@ -757,6 +759,18 @@ for(;;){
     if($q[1]){
       fwrite($fp[$dev],chr(0x46).chr($v[1]),2);
       usleep($mysleep);
+    }
+  }
+  // rele out on device 5
+  for($j=48;$j<50;$j++){
+    if($rele[$j]!=$rele_old[$j]){
+      $devstr=chr(50-$rele[$j]).chr($j+1).":0";
+      $mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
+      socket_sendto($mysock,$devstr,strlen($devstr),0,"10.0.0.30",6723);
+      socket_close($mysock);
+      usleep($mysleep);
+      fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
+      $rele_old[$j]=$rele[$j];
     }
   }
   
