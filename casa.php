@@ -89,6 +89,7 @@ $mytime_ref=time()-(int)(mytime_up()/100);
 $hhmm_last=0;
 $totrele=50;
 $commblock=0;
+$commlast=mytime_up();
 include "/tmp/mnt/sda1/password.php";
 
 myconfig();
@@ -234,8 +235,9 @@ for(;;){
   // command analysis
   $client=@socket_accept($sock);
   $ext_ip="";
-  if($client!==false && $commblock==0){
+  if($client!==false && $commblock==0 && mytime_up()-$commlast>200){
     $commblock=1;
+    $commlast=mytime_up();
     printf("q1in\n");
     socket_getpeername($client,$ext_ip);
     $mytext="<html><body><pre>";
