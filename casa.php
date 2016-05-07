@@ -234,10 +234,11 @@ for(;;){
   $client=@socket_accept($sock);
   $ext_ip="";
   if($client!==false){
-    printf("q1\n");
+    printf("q1in\n");
     socket_getpeername($client,$ext_ip);
     $mytext="<html><body><pre>";
     $aux=trim(socket_read($client,2048));
+    printf("q1on $exp_ip $aux q1off\n");
     $instart=strpos($aux,"GET")+4;
     $inlen=strpos($aux,"HTTP")-$instart-1;
     $mycmd=substr($aux,$instart,$inlen);
