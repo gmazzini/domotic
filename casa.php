@@ -13,7 +13,6 @@
 // virtualkey 48-63
 
 $casa_version="35";
-$totrele=50;
 
 // multiple output
 function multiout($port,$val){
@@ -88,6 +87,8 @@ $inject_last=0;
 $threelevels_time=500;
 $mytime_ref=time()-(int)(mytime_up()/100);
 $hhmm_last=0;
+$totrele=50;
+$commblock=0;
 include "/tmp/mnt/sda1/password.php";
 
 myconfig();
@@ -233,7 +234,8 @@ for(;;){
   // command analysis
   $client=@socket_accept($sock);
   $ext_ip="";
-  if($client!==false){
+  if($client!==false && $commblock==0){
+    $commblock=1;
     printf("q1in\n");
     socket_getpeername($client,$ext_ip);
     $mytext="<html><body><pre>";
@@ -453,6 +455,7 @@ for(;;){
     socket_write($client,"\r\n");
     socket_write($client,$mytext);
     socket_close($client);
+    $commblock=0;
   }
   
   if($nkey){
