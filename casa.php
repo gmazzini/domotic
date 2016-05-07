@@ -12,7 +12,7 @@
 // device 5 on 10.0.0.30 UDP 6723: on 48 11:0, off 48 21:0, on 49 12:0, off 49 22:0
 // virtualkey 48-63
 
-$casa_version="34";
+$casa_version="35";
 $totrele=50;
 
 // multiple output
