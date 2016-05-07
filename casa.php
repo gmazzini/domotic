@@ -90,6 +90,7 @@ $hhmm_last=0;
 $totrele=50;
 $commblock=0;
 $commlast=mytime_up();
+$commdelta_time=200;
 include "/tmp/mnt/sda1/password.php";
 
 myconfig();
@@ -235,14 +236,12 @@ for(;;){
   // command analysis
   $client=@socket_accept($sock);
   $ext_ip="";
-  if($client!==false && $commblock==0 && mytime_up()-$commlast>200){
+  if($client!==false && $commblock==0 && mytime_up()-$commlast>$commdelta_time){
     $commblock=1;
     $commlast=mytime_up();
-    printf("q1in\n");
     socket_getpeername($client,$ext_ip);
     $mytext="<html><body><pre>";
     $aux=trim(socket_read($client,2048));
-    printf("q1on $exp_ip $aux q1off\n");
     $instart=strpos($aux,"GET")+4;
     $inlen=strpos($aux,"HTTP")-$instart-1;
     $mycmd=substr($aux,$instart,$inlen);
@@ -261,7 +260,7 @@ for(;;){
             if($rele[$r])$count++;
             if($r%6==5)$mytext.="\n";
           }
-          $mytext.="Total On: $count\n";
+          $mytext.="\nTotal On: $count\n";
           break;
           
         case "keystatus":
