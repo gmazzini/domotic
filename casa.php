@@ -18,9 +18,7 @@ $totrele=50;
 // multiple output
 function multiout($port,$val){
   global $fp,$mysleep;
-  for($dev=0;$dev<4;$dev++){
-    fwrite($fp[$dev],chr($port).chr($val),2);
-  }
+  for($dev=0;$dev<4;$dev++)fwrite($fp[$dev],chr($port).chr($val),2);
   usleep($mysleep);
 }
 
@@ -28,32 +26,22 @@ function multiout($port,$val){
 function multiin($port){
   global $fp,$mysleep;
   multiout($port,0x00);
-  for($dev=0;$dev<4;$dev++){
-    $myin[$dev]=ord(fread($fp[$dev],1));
-  }
+  for($dev=0;$dev<4;$dev++)$myin[$dev]=ord(fread($fp[$dev],1));
   return $myin;
 }
 
 // key check status
 function key_checkstatus($mykey){
   global $inkey,$maskin;
-  if($inkey[(int)($mykey/12)] & $maskin[$mykey%12]){
-    return 0;
-  }
-  else {
-    return 1;
-  }
+  if($inkey[(int)($mykey/12)] & $maskin[$mykey%12])return 0;
+  else return 1;
 }
 
 // rele set
 function myreleset($r,$val){
   global $rele,$rele_time;
-  if($val){
-    $rele[$r]=1;
-  }
-  else {
-    $rele[$r]=0;
-  }
+  if($val)$rele[$r]=1;
+  else $rele[$r]=0;
   $rele_time[$r]=mytime_up();
 }
 
@@ -111,9 +99,10 @@ fprintf($fplog,"Starting on %s\n",mytime_print(mytime_up()));
 // open communications
 $sock=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_set_option($sock,SOL_SOCKET,SO_REUSEADDR,1);
+socket_set_nonblock($sock);
 socket_bind($sock,"10.0.0.2",3333);
 socket_listen($sock);
-socket_set_nonblock($sock);
+
 for($dev=0;$dev<4;$dev++){
   $ip=sprintf("10.0.0.%d",21+$dev);
   $fp[$dev]=fsockopen($ip,10001);
@@ -274,6 +263,7 @@ for(;;){
   $client=@socket_accept($sock);
   $ext_ip="";
   if($client!==false){
+    printf("q1\n");
     socket_getpeername($client,$ext_ip);
     $mytext="<html><body><pre>";
     $aux=trim(socket_read($client,2048));
