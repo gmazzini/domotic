@@ -396,7 +396,7 @@ for(;;){
           break;
           
         case "key":
-          $mytext.=sprintf("Keys association",$n);
+          $mytext.=sprintf("Keys association\n");
           for($n=0;$n<64;$n++)$ww[$n]=0;
           for($n=0;$n<$nact;$n++){
             $myaa=$act[$n][0];
@@ -411,7 +411,7 @@ for(;;){
           for($n=0;$n<64;$n++){
             $mytext.=sprintf("Key #:%02d",$n);
             $nn=$ww[$n];
-            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s),",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
+            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
             $mytext.="\n";
           }
           break;
