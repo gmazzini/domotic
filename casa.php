@@ -12,7 +12,7 @@
 // device 5 on 10.0.0.30 UDP 6723: on 48 11:0, off 48 21:0, on 49 12:0, off 49 22:0
 // virtualkey 48-63
 
-$casa_version="35";
+$casa_version="36";
 
 // multiple output
 function multiout($port,$val){
@@ -396,6 +396,7 @@ for(;;){
           break;
           
         case "key":
+          $mytext.=sprintf("Keys association",$n);
           for($n=0;$n<64;$n++)$ww[$n]=0;
           for($n=0;$n<$nact;$n++){
             $myaa=$act[$n][0];
@@ -410,7 +411,7 @@ for(;;){
           for($n=0;$n<64;$n++){
             $mytext.=sprintf("Key #:%02d",$n);
             $nn=$ww[$n];
-            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$www[$n][$cn]);
+            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s),",$cn,$www[$n][$cn],$act[$www[$n][$cn]][-1]);
             $mytext.="\n";
           }
           break;
