@@ -411,7 +411,7 @@ for(;;){
           for($n=0;$n<64;$n++){
             $mytext.=sprintf("Key #:%02d",$n);
             $nn=$ww[$n];
-            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s),",$cn,$www[$n][$cn],$act[$www[$n][$cn]][-1]);
+            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s),",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
             $mytext.="\n";
           }
           break;
