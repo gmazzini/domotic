@@ -1,6 +1,6 @@
 <?php
 
-$config_version="49";
+$config_version="50";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -14,19 +14,19 @@ $config_version="49";
 // offtimed_keysup: 10 h_start h_end n_key key_1 ... key_n rele minutes name
 
 $act=array(
-array(6,5,20,4,12,"accendi acqua mattina"),
-array(7,5,30,4,12,"spegni acqua mattina"),
-array(6,8,20,4,12,"accendi acqua mezzogiorno"),
-array(7,8,30,4,12,"spegni acqua mezzogiorno"),
-array(6,18,20,4,12,"accendi acqua pomeriggio"),
-array(7,18,30,4,12,"spegni acqua pomeriggio"),
-array(6,22,20,4,12,"accendi acqua sera"),
-array(7,22,30,4,12,"spegni acqua sera"),
-array(1,0,23,1,4,1,12,"acqua"),
+// array(6,5,20,4,12,"accendi acqua mattina"),
+// array(7,5,30,4,12,"spegni acqua mattina"),
+// array(6,8,20,4,12,"accendi acqua mezzogiorno"),
+// array(7,8,30,4,12,"spegni acqua mezzogiorno"),
+// array(6,18,20,4,12,"accendi acqua pomeriggio"),
+// array(7,18,30,4,12,"spegni acqua pomeriggio"),
+// array(6,22,20,4,12,"accendi acqua sera"),
+// array(7,22,30,4,12,"spegni acqua sera"),
+// array(1,0,23,1,4,1,12,"acqua"),
 array(8,0,23,1,14,1,19,"caldaia_automatica"),
 array(1,0,23,1,60,1,19,"caldaia"),
 array(10,0,23,1,14,19,60,"caldaia_autoff"),
-//array(1,0,23,3,30,6,16,7,43,37,9,12,16,26,13,"natale"),
+array(1,0,23,3,30,6,16,7,43,37,9,12,16,26,13,"natale"),
 array(8,7,22,1,17,1,25,"campanello"),
 array(1,0,23,1,19,1,20,"cucina"),
 array(1,0,23,1,18,1,16,"pianale_cucina"),
@@ -44,8 +44,8 @@ array(1,0,23,1,35,1,46,"luna_letto"),
 array(0,0,23,4,40,25,31,45,1,42,1,24,"gm&mts"),
 array(1,0,23,2,24,63,1,27,"gm_comodino"),
 array(1,0,23,1,41,1,28,"mts_comodino"),
-array(0,0,23,1,13,2,21,17,2,22,13,"living da terra"),
-// array(0,0,23,1,13,2,21,17,1,22,"living da terra (a natale)"),
+// array(0,0,23,1,13,2,21,17,2,22,13,"living da terra"),
+array(0,0,23,1,13,2,21,17,1,22,"living da terra (a natale)"),
 array(0,0,23,1,7,2,15,11,1,14,"living a parete"),
 array(1,0,23,1,23,2,13,11,"living piccola"),
 array(1,0,23,1,12,1,23,"ripostiglio"),
