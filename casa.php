@@ -13,7 +13,7 @@
 // device 6 on 10.0.0.31 UDP 6723: on 50 11:0, off 50 21:0, on 51 12:0, off 51 22:0
 // virtualkey 48-63
 
-$casa_version="37";
+$casa_version="38";
 
 // multiple output
 function multiout($port,$val){
@@ -88,7 +88,7 @@ $inject_last=0;
 $threelevels_time=500;
 $mytime_ref=time()-(int)(mytime_up()/100);
 $hhmm_last=0;
-$totrele=50;
+$totrele=52;
 $commblock=0;
 $commlast=mytime_up();
 $commdelta_time=200;
@@ -638,7 +638,7 @@ for(;;){
   // rele out on device 6
   for($j=50;$j<52;$j++){
     if($rele[$j]!=$rele_old[$j]){
-      $devstr=chr(50-$rele[$j]).chr($j+1).":0";
+      $devstr=chr(52-$rele[$j]).chr($j+1).":0";
       $mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
       socket_sendto($mysock,$devstr,strlen($devstr),0,"10.0.0.31",6723);
       socket_close($mysock);
