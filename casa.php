@@ -10,9 +10,10 @@
 // C_Read=47H C_Conf=48H C_Write=4AH
 // Conf 1=Input 0=Output 
 // device 5 on 10.0.0.30 UDP 6723: on 48 11:0, off 48 21:0, on 49 12:0, off 49 22:0
+// device 6 on 10.0.0.31 UDP 6723: on 50 11:0, off 50 21:0, on 51 12:0, off 51 22:0
 // virtualkey 48-63
 
-$casa_version="36";
+$casa_version="37";
 
 // multiple output
 function multiout($port,$val){
@@ -628,6 +629,18 @@ for(;;){
       $devstr=chr(50-$rele[$j]).chr($j+1).":0";
       $mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
       socket_sendto($mysock,$devstr,strlen($devstr),0,"10.0.0.30",6723);
+      socket_close($mysock);
+      usleep($mysleep);
+      fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
+      $rele_old[$j]=$rele[$j];
+    }
+  }
+  // rele out on device 6
+  for($j=50;$j<52;$j++){
+    if($rele[$j]!=$rele_old[$j]){
+      $devstr=chr(50-$rele[$j]).chr($j+1).":0";
+      $mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
+      socket_sendto($mysock,$devstr,strlen($devstr),0,"10.0.0.31",6723);
       socket_close($mysock);
       usleep($mysleep);
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
