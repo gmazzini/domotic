@@ -1,6 +1,6 @@
 <?php
 
-$config_version="50";
+$config_version="51";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -50,7 +50,7 @@ array(0,0,23,1,7,2,15,11,1,14,"living a parete"),
 array(1,0,23,1,23,2,13,11,"living piccola"),
 array(1,0,23,1,12,1,23,"ripostiglio"),
 array(0,0,23,2,43,37,1,0,1,1,"neve"),
-array(1,0,23,1,44,1,33,"neve_studio"),
+array(1,0,23,1,44,2,33,50"neve_studio"),
 array(1,0,23,1,42,1,34,"neve_letto"),
 array(1,0,23,1,38,1,26,"neve_hood"),
 array(4,0,23,3,2,39,26,1,19,"spegnitutto"),
