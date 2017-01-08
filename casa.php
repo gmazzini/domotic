@@ -13,7 +13,7 @@
 // device 6 on 10.0.0.31 UDP 6723: on 50 11:0, off 50 21:0, on 51 12:0, off 51 22:0
 // virtualkey 48-63
 
-$casa_version="38";
+$casa_version="39";
 
 // multiple output
 function multiout($port,$val){
