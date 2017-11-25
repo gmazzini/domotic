@@ -19,7 +19,7 @@ $act=array(
 // array(6,22,20,4,12,"accendi acqua sera"),
 // array(7,22,40,4,12,"spegni acqua sera"),
 // array(1,0,23,1,4,1,12,"acqua"),
-array(1,0,23,3,30,6,16,7,43,37,9,12,16,26,13,"natale"),
+array(1,0,23,2,30,6,7,43,37,9,12,16,26,13,"natale"),
 array(8,7,22,1,17,1,25,"campanello"),
 array(1,0,23,1,19,1,20,"cucina"),
 array(1,0,23,1,18,1,16,"pianale_cucina"),
