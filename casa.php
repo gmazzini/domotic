@@ -627,7 +627,7 @@ for(;;){
   // rele out on device 5
   for($j=48;$j<56;$j++){
     if($rele[$j]!=$rele_old[$j]){
-      http_get("http://10.0.0.32/k0".chr($j+1)."=".chr(50-$rele[$j]));     
+      $myfeedback=file_get_contents("http://10.0.0.32/k0".chr($j+1)."=".chr(50-$rele[$j]));     
       usleep($mysleep);
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
       $rele_old[$j]=$rele[$j];
