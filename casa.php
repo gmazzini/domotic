@@ -9,8 +9,9 @@
 // B_Read=44H B_Conf=45H B_Write=46H
 // C_Read=47H C_Conf=48H C_Write=4AH
 // Conf 1=Input 0=Output 
-// device 5 on 10.0.0.30 UDP 6723: on 48 11:0, off 48 21:0, on 49 12:0, off 49 22:0
+// device 5 BEM06 on 10.0.0.32 48-55 ... UDP 6723: on 48 11:0, off 48 21:0, on 49 12:0, off 49 22:0
 // device 6 on 10.0.0.31 UDP 6723: on 50 11:0, off 50 21:0, on 51 12:0, off 51 22:0
+
 // virtualkey 48-63
 
 $casa_version="40";
