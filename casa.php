@@ -636,7 +636,7 @@ for(;;){
   // rele out on device 6
   for($j=56;$j<58;$j++){
     if($rele[$j]!=$rele_old[$j]){
-      $devstr=chr(50-$rele[$j]).chr($j-1).":0";
+      $devstr=chr(50-$rele[$j]).chr($j-7).":0";
       $mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
       socket_sendto($mysock,$devstr,strlen($devstr),0,"10.0.0.31",6723);
       socket_close($mysock);
