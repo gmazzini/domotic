@@ -1,6 +1,6 @@
 <?php
 
-$config_version="59";
+$config_version="60";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -19,13 +19,13 @@ $act=array(
 // array(6,22,20,4,12,"accendi acqua sera"),
 // array(7,22,40,4,12,"spegni acqua sera"),
 // array(1,0,23,1,4,1,12,"acqua"),
-array(1,0,23,3,18,30,6,8,43,37,9,12,16,26,13,19,"natale"),
+array(1,0,23,3,18,30,6,9,43,37,9,12,16,26,13,19,51,"natale"),
 array(8,7,22,1,17,1,25,"campanello"),
 array(1,0,23,1,19,1,20,"cucina"),
 // array(1,0,23,1,18,1,16,"pianale_cucina"),
 array(1,0,23,1,20,1,18,"cappa"),
 array(1,0,23,1,22,2,10,8,"bagno_terra"),
-array(1,0,23,1,15,5,5,30,38,49,52,"esterne"),
+array(1,0,23,1,15,5,4,30,38,49,52,"esterne"),
 array(0,0,23,3,3,36,32,1,45,2,31,47,"scala"),
 array(1,0,23,1,28,2,35,32,"bagno_sopra"),
 array(0,0,23,2,1,10,2,5,6,2,2,3,"diner"),
@@ -48,7 +48,7 @@ array(1,0,23,1,42,1,34,"neve_letto"),
 array(1,0,23,1,38,1,26,"neve_hood"),
 array(4,0,23,3,2,39,26,0,"spegnitutto"),
 array(3,0,23,1,5,22,0,1,24,25,27,28,31,32,33,34,35,36,39,40,41,42,44,45,46,47,56,57,"spegnisopra"),
-array(1,0,23,1,16,1,48,"cantina")
+array(0,0,23,1,16,1,54,1,55,"cantina")
 );
 
 ?>
