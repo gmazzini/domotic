@@ -9,12 +9,12 @@
 // B_Read=44H B_Conf=45H B_Write=46H
 // C_Read=47H C_Conf=48H C_Write=4AH
 // Conf 1=Input 0=Output 
-// device 5 BEM06 on 10.0.0.32 48-55 ... UDP 6723: on 48 11:0, off 48 21:0, on 49 12:0, off 49 22:0
-// device 6 on 10.0.0.31 UDP 6723: on 50 11:0, off 50 21:0, on 51 12:0, off 51 22:0
+// device 5 BEM06 on 10.0.0.32 48-55 set x=R-47 http://10.0.0.32/k0x=1 on http://10.0.0.32/k0x=0
+// device 6 on 10.0.0.31 UDP 6723: on 56 11:0, off 56 21:0, on 57 12:0, off 57 22:0
 
 // virtualkey 48-63
 
-$casa_version="40";
+$casa_version="41";
 
 // multiple output
 function multiout($port,$val){
@@ -89,7 +89,7 @@ $inject_last=0;
 $threelevels_time=500;
 $mytime_ref=time()-(int)(mytime_up()/100);
 $hhmm_last=0;
-$totrele=52;
+$totrele=58;
 $commblock=0;
 $commlast=mytime_up();
 $commdelta_time=200;
@@ -625,19 +625,16 @@ for(;;){
     }
   }
   // rele out on device 5
-  for($j=48;$j<50;$j++){
+  for($j=48;$j<56;$j++){
     if($rele[$j]!=$rele_old[$j]){
-      $devstr=chr(50-$rele[$j]).chr($j+1).":0";
-      $mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
-      socket_sendto($mysock,$devstr,strlen($devstr),0,"10.0.0.30",6723);
-      socket_close($mysock);
+      http_get("http://10.0.0.32/k0".chr($j+1)."=".chr(50-$rele[$j]));     
       usleep($mysleep);
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
       $rele_old[$j]=$rele[$j];
     }
   }
   // rele out on device 6
-  for($j=50;$j<52;$j++){
+  for($j=56;$j<58;$j++){
     if($rele[$j]!=$rele_old[$j]){
       $devstr=chr(50-$rele[$j]).chr($j-1).":0";
       $mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
