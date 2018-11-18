@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="42";
+$casa_version="43";
 
 // multiple output
 function multiout($port,$val){
