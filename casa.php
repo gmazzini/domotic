@@ -627,6 +627,15 @@ for(;;){
   // rele out on device 5
   for($j=48;$j<56;$j++){
     if($rele[$j]!=$rele_old[$j]){
+      $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+      $myre1=socket_connect($myso1,"10.0.0.32",5000);
+      $mymsg1="getpara[129]=1";
+      socket_write($myso1,$mymsg1,strlen($msg1));
+      $myout=socket_read($socket,2048);
+echo $out;
+echo "\n";
+socket_close($socket);
+      
       $myfeedback=file_get_contents("http://10.0.0.32/k0".chr($j+1)."=".chr(48+$rele[$j]));     
       usleep($mysleep);
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
