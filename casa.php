@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="44";
+$casa_version="45";
 
 // multiple output
 function multiout($port,$val){
@@ -630,7 +630,7 @@ for(;;){
       $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
       socket_connect($myso1,"10.0.0.32",5000);
       $mymsg1="k0".chr($j+1)."=".chr(48+$rele[$j]).";";
-      socket_write($myso1,$mymsg1,strlen($msg1));
+      socket_write($myso1,$mymsg1,strlen($mymsg1));
       socket_close($myso1);
       // $myfeedback=file_get_contents("http://10.0.0.32/k0".chr($j+1)."=".chr(48+$rele[$j]));     
       usleep($mysleep);
