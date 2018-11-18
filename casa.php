@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="45";
+$casa_version="47";
 
 // multiple output
 function multiout($port,$val){
@@ -138,6 +138,21 @@ multiout(0x48,0xff);
 multiout(0x43,0x00);
 multiout(0x46,0x00);
 multiout(0x4a,0x00);
+$myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+socket_connect($myso1,"10.0.0.32",5000);
+for($j=48;$j<56;$j++){
+  $mymsg1="k0".chr($j+1)."=0;";
+  socket_write($myso1,$mymsg1,strlen($mymsg1));
+  usleep($mysleep);
+}
+socket_close($myso1);
+$mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
+for($j=56;$j<58;$j++){
+  $devstr=chr(50).chr($j-7).":0";
+  socket_sendto($mysock,$devstr,strlen($devstr),0,"10.0.0.31",6723);
+  usleep($mysleep);
+}
+socket_close($mysock);
 
 // actual time
 $hhmm=mytime_hhmm();
