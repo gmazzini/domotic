@@ -1,6 +1,6 @@
 <?php
 
-$config_version="60";
+$config_version="61";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -19,17 +19,17 @@ $act=array(
 // array(6,22,20,4,12,"accendi acqua sera"),
 // array(7,22,40,4,12,"spegni acqua sera"),
 // array(1,0,23,1,4,1,12,"acqua"),
-array(1,0,23,3,18,30,6,9,43,37,9,12,16,26,13,19,51,"natale"),
+array(1,0,23,3,18,30,12,9,43,37,9,12,16,26,13,19,51,"natale"),
 array(8,7,22,1,17,1,25,"campanello"),
 array(1,0,23,1,19,1,20,"cucina"),
 // array(1,0,23,1,18,1,16,"pianale_cucina"),
 array(1,0,23,1,20,1,18,"cappa"),
 array(1,0,23,1,22,2,10,8,"bagno_terra"),
-array(1,0,23,1,15,5,4,30,38,49,52,"esterne"),
+array(1,0,23,1,15,5,4,30,38,52,53,"esterne"),
 array(0,0,23,3,3,36,32,1,45,2,31,47,"scala"),
 array(1,0,23,1,28,2,35,32,"bagno_sopra"),
 array(0,0,23,2,1,10,2,5,6,2,2,3,"diner"),
-array(0,0,23,4,0,8,11,27,1,7,1,29,"led scala e diner"),
+array(0,0,23,4,0,14,11,27,1,7,1,29,"led scala e diner"),
 array(1,0,23,1,47,1,40,"doccia"),
 array(0,0,23,2,46,34,1,39,1,36,"luna"),
 array(1,0,23,1,33,1,41,"luna_studio"),
@@ -37,11 +37,11 @@ array(1,0,23,1,35,1,46,"luna_letto"),
 array(0,0,23,4,40,25,31,45,1,42,1,24,"gm&mts"),
 array(1,0,23,2,24,63,1,27,"gm_comodino"),
 array(1,0,23,1,41,1,28,"mts_comodino"),
-// array(0,0,23,1,13,2,21,17,2,22,13,"living da terra"),
-array(0,0,23,1,13,2,21,17,1,22,"living da terra (a natale)"),
-array(0,0,23,1,7,2,15,11,1,14,"living a parete"),
+// array(0,0,23,1,7,2,21,17,2,22,13,"living da terra"),
+array(0,0,23,1,7,2,21,17,1,22,"living da terra (a natale)"),
+array(0,0,23,1,13,2,15,11,1,14,"living a parete"),
 array(1,0,23,1,23,2,13,11,"living piccola"),
-array(1,0,23,1,12,1,23,"ripostiglio"),
+array(1,0,23,1,6,1,23,"ripostiglio"),
 array(0,0,23,2,43,37,1,0,1,1,"neve"),
 array(1,0,23,1,44,3,33,56,57,"neve_studio"),
 array(1,0,23,1,42,1,34,"neve_letto"),
