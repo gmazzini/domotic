@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="48";
+$casa_version="49";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -566,7 +566,7 @@ for(;;){
                 $actq=0;
                 for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)if($rele[$act[$n][$cq]])$actq++;
                 $actv=0;
-                for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cq++)if($rele[$act[$n][$cv]])$actv++;
+                for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)if($rele[$act[$n][$cv]])$actv++;
                 if($aux>$threelevels_time){
                   if($actm || $actq || $acqv){
                     for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],0);
