@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="47";
+$casa_version="48";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -345,6 +345,27 @@ for(;;){
                 for($cq=0;$cq<$qq;$cq++)$mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
                 $mytext.="\n\n";
                 break;
+                
+              case 11:
+                $nn=$act[$n][3];
+                $mm=$act[$n][4+$nn];
+                $qq=$act[$n][5+$mm+$nn];
+                $vv=$act[$n][6+$mm+$nn+$qq];
+                $mytext.=sprintf("Rule: %02d Type: 3level Name: %s\n",$n,$act[$n][7+$nn+$mm+$qq+$vv]);
+                $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
+                $mytext.=sprintf("Key #:%02d",$nn);
+                for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
+                $mytext.="\n";
+                $mytext.=sprintf("Rele_A #:%02d",$mm);
+                for($cm=0;$cm<$mm;$cm++)$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                $mytext.="\n";
+                $mytext.=sprintf("Rele_B #:%02d",$qq);
+                for($cq=0;$cq<$qq;$cq++)$mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
+                $mytext.="\n";
+                $mytext.=sprintf("Rele_C #:%02d",$vv);
+                for($cv=0;$cv<$vv;$cv++)$mytext.=sprintf(" %02d:%02d",$cv,$act[$n][$cv+7+$nn+$mm+$qq]);
+                $mytext.="\n\n";
+                break;  
                
               case 1:
               case 2:
@@ -529,6 +550,62 @@ for(;;){
           }
           break;
           
+        // 3light
+        case 11:
+          if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2])break;
+          $nn=$act[$n][3];
+          $mm=$act[$n][4+$nn];
+          $qq=$act[$n][5+$mm+$nn];
+          $vv=$act[$n][6+$mm+$nn+$qq];
+          for($i=4;$i<4+$nn;$i++){
+            for($j=0;$j<$nkey;$j++){
+              if($act[$n][$i]==$key_number[$j] && !$key_state[$j]){
+                $aux=$key_time[$j]-$key_last0[$key_number[$j]];
+                $actm=0;
+                for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)if($rele[$act[$n][$cm]])$actm++;
+                $actq=0;
+                for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)if($rele[$act[$n][$cq]])$actq++;
+                $actv=0;
+                for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cq++)if($rele[$act[$n][$cv]])$actv++;
+                if($aux>$threelevels_time){
+                  if($actm || $actq || $acqv){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],0);
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)myreleset($act[$n][$cq],0);
+                    for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)myreleset($act[$n][$cv],0);
+                  }
+                  else {
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],1);
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)myreleset($act[$n][$cq],1);
+                    for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)myreleset($act[$n][$cv],1);
+                  }
+                }
+                else {
+                  if($actm && $actq && $actv){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],1);
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)myreleset($act[$n][$cq],0);
+                    for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)myreleset($act[$n][$cv],0);
+                  }
+                  else if($actm && !$actq && !$actv){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],0);
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)myreleset($act[$n][$cq],1);
+                    for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)myreleset($act[$n][$cv],0);
+                  }
+                  else if(!$actm && $actq && !$actv){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],0);
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)myreleset($act[$n][$cq],0);
+                    for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)myreleset($act[$n][$cv],1);
+                  }
+                  else if(!$actm && !$actq && $actv){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],0);
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)myreleset($act[$n][$cq],0);
+                    for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)myreleset($act[$n][$cv],0);
+                  }
+                }
+              }
+            }
+          }
+          break;
+              
         // onoff
         case 1:
           if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2])break;
