@@ -1,6 +1,6 @@
 <?php
 
-$config_version="73";
+$config_version="72";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
