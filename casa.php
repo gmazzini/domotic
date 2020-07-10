@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="49";
+$casa_version="51";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -351,7 +351,7 @@ for(;;){
                 $mm=$act[$n][4+$nn];
                 $qq=$act[$n][5+$mm+$nn];
                 $vv=$act[$n][6+$mm+$nn+$qq];
-                $mytext.=sprintf("Rule: %02d Type: 3level Name: %s\n",$n,$act[$n][7+$nn+$mm+$qq+$vv]);
+                $mytext.=sprintf("Rule: %02d Type: 3lights Name: %s\n",$n,$act[$n][7+$nn+$mm+$qq+$vv]);
                 $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
                 $mytext.=sprintf("Key #:%02d",$nn);
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
@@ -568,7 +568,7 @@ for(;;){
                 $actv=0;
                 for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)if($rele[$act[$n][$cv]])$actv++;
                 if($aux>$threelevels_time){
-                  if($actm || $actq || $acqv){
+                  if($actm || $actq || $actv){
                     for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],0);
                     for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)myreleset($act[$n][$cq],0);
                     for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)myreleset($act[$n][$cv],0);
@@ -599,6 +599,11 @@ for(;;){
                     for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],0);
                     for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)myreleset($act[$n][$cq],0);
                     for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)myreleset($act[$n][$cv],0);
+                  }
+                  else if(!$actm && !$actq && !$actv){
+                    for($cm=5+$nn;$cm<5+$nn+$mm;$cm++)myreleset($act[$n][$cm],1);
+                    for($cq=6+$nn+$mm;$cq<6+$nn+$mm+$qq;$cq++)myreleset($act[$n][$cq],1);
+                    for($cv=7+$nn+$mm+$qq;$cv<7+$nn+$mm+$qq+$vv;$cv++)myreleset($act[$n][$cv],1);
                   }
                 }
               }
