@@ -1,6 +1,6 @@
 <?php
 
-$config_version="67";
+$config_version="69";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -30,6 +30,7 @@ array(1,0,23,1,15,5,4,30,38,52,53,"esterne"),
 array(0,0,23,3,3,36,32,1,45,2,31,47,"scala"),
 array(1,0,23,1,28,2,35,32,"bagno_sopra"),
 array(0,0,23,2,1,10,2,5,6,2,2,3,"diner"),
+array(11,0,23,2,1,10,2,6,3,1,2,1,5,"barradinner"),
 array(0,0,23,3,0,11,27,1,7,1,29,"led scala e diner"),
 array(1,0,23,1,47,1,40,"doccia"),
 array(0,0,23,2,46,34,1,39,1,36,"luna"),
@@ -41,9 +42,6 @@ array(1,0,23,1,41,1,28,"mts_comodino"),
 array(0,0,23,1,13,1,21,2,22,13,"living da terra"),
 // array(0,0,23,1,7,2,21,17,1,22,"living da terra (a natale)"),
 array(11,0,23,1,7,1,15,1,17,1,14,"barraliving"),
-array(1,0,23,1,6,1,15,"barraliving L1"),
-// array(1,0,23,1,7,1,17,"barraliving L2"),
-array(1,0,23,1,8,1,14,"barraliving L3"),
 array(1,0,23,1,23,2,13,11,"living piccola"),
 array(1,0,23,1,14,1,23,"ripostiglio"),
 array(0,0,23,2,43,37,1,0,1,1,"neve"),
