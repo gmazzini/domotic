@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="51";
+$casa_version="52";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -91,7 +91,7 @@ $hhmm_last=0;
 $totrele=58;
 $commblock=0;
 $commlast=mytime_up();
-$commdelta_time=200;
+$commdelta_time=1000;
 include $mydir."password.php";
 
 myconfig();
@@ -252,7 +252,7 @@ for(;;){
   // command analysis
   $client=@socket_accept($sock);
   $ext_ip="";
-  if($client!==false && $commblock==0 && mytime_up()-$commlast>$commdelta_time){
+  if(($client!==false)&&($commblock==0)&&(mytime_up()-$commlast>$commdelta_time)){
     $commblock=1;
     $commlast=mytime_up();
     socket_getpeername($client,$ext_ip);
@@ -262,7 +262,7 @@ for(;;){
     $inlen=strpos($aux,"HTTP")-$instart-1;
     $mycmd=substr($aux,$instart,$inlen);
     $in=explode("/",$mycmd);
-    if($in[1]!=$passwd)$mytext.="Wrong Password\n";
+    if($in[1]!=$passwd)$mytext.="Wrong Password ".$in[1]."\n";
     else {
       switch($in[2]){
         
