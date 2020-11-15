@@ -1,2 +1,5 @@
-curl -k https://raw.githubusercontent.com/gmazzini/domotic/master/casa.php > casa.php
-curl -k https://raw.githubusercontent.com/gmazzini/domotic/master/config.php > config.php
+cd /Users/gmazzini/Desktop/domotica
+rm -rf domotic
+git clone https://github.com/gmazzini/domotic
+cp domotic/config.php .
+cp domotic/casa.php .
