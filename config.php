@@ -1,6 +1,6 @@
 <?php
 
-$config_version="90";
+$config_version="92";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -20,10 +20,10 @@ $act=array(
 // array(6,22,20,4,12,"accendi acqua sera"),
 // array(7,22,40,4,12,"spegni acqua sera"),
 // array(1,0,23,1,4,1,12,"acqua"),
-array(1,0,23,3,18,30,12,9,43,37,9,12,20,13,51,1,19,"natale"),
+array(1,0,23,3,12,18,30,9,1,9,12,13,19,20,37,43,51,"natale"),
 array(8,7,22,1,17,1,25,"campanello"),
 array(1,0,23,1,19,1,16,"cucina"),
-array(1,0,23,1,22,2,10,8,"bagno_terra"),
+array(1,0,23,1,22,2,8,10,"bagno_terra"),
 array(1,0,23,1,15,5,4,30,38,52,53,"esterne"),
 array(0,0,23,3,3,36,32,1,45,2,31,47,"scala"),
 array(1,0,23,1,28,2,35,32,"bagno_sopra"),
@@ -46,8 +46,8 @@ array(1,0,23,1,44,1,44,"neve_letto"),
 array(1,0,23,1,42,1,34,"neve_studio"),
 array(1,0,23,1,37,1,26,"sala_radio"),
 array(4,0,23,3,2,39,26,0,"spegnitutto"),
-array(3,0,23,1,5,22,0,1,24,25,27,28,31,32,33,34,35,36,39,40,41,42,44,45,46,47,56,57,"spegnisopra"),
-array(3,0,23,1,29,25,2,5,6,3,7,18,16,20,11,17,14,22,21,9,15,23,8,10,4,30,38,52,53,13,19,"spegnisotto"),
+array(3,0,23,1,5,20,0,24,26,27,28,29,31,32,33,34,35,36,39,40,41,42,44,45,46,47,"spegnisopra"),
+array(3,0,23,1,29,16,2,3,5,6,7,8,10,11,14,15,16,17,18,21,22,23,"spegnisotto"),
 array(0,0,23,1,16,1,54,1,55,"cantina")
 );
 
