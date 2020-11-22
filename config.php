@@ -1,6 +1,6 @@
 <?php
 
-$config_version="93";
+$config_version="94";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -20,7 +20,7 @@ $act=array(
 // array(6,22,20,4,12,"accendi acqua sera"),
 // array(7,22,40,4,12,"spegni acqua sera"),
 // array(1,0,23,1,4,1,12,"acqua"),
-array(1,0,23,3,12,18,30,9,1,10,12,13,19,20,37,43,51,56,"natale"),
+array(1,0,23,3,12,18,30,10,1,9,12,13,19,20,37,43,51,56,"natale"),
 array(8,7,22,1,17,1,25,"campanello"),
 array(1,0,23,1,19,1,16,"cucina"),
 array(1,0,23,1,22,2,8,10,"bagno_terra"),
