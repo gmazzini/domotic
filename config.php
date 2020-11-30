@@ -1,6 +1,6 @@
 <?php
 
-$config_version="94";
+$config_version="95";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -46,7 +46,7 @@ array(1,0,23,1,44,1,44,"neve_letto"),
 array(1,0,23,1,42,1,34,"neve_studio"),
 array(1,0,23,1,37,1,26,"sala_radio"),
 array(4,0,23,3,2,39,26,0,"spegnitutto"),
-array(3,0,23,1,5,20,0,24,26,27,28,29,31,32,33,34,35,36,39,40,41,42,44,45,46,47,"spegnisopra"),
+array(3,0,23,1,5,19,0,24,26,27,28,31,32,33,34,35,36,39,40,41,42,44,45,46,47,"spegnisopra"),
 array(3,0,23,1,29,16,2,3,5,6,7,8,10,11,14,15,16,17,18,21,22,23,"spegnisotto"),
 array(0,0,23,1,16,1,54,1,55,"cantina")
 );
