@@ -91,7 +91,7 @@ $hhmm_last=0;
 $totrele=58;
 $commblock=0;
 $commlast=mytime_up();
-$commdelta_time=1000;
+$commdelta_time=100;
 include $mydir."password.php";
 
 myconfig();
