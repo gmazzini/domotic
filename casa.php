@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="52";
+$casa_version="53";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -92,6 +92,7 @@ $totrele=58;
 $commblock=0;
 $commlast=mytime_up();
 $commdelta_time=100;
+$keyoff=0;
 include $mydir."password.php";
 
 myconfig();
@@ -157,27 +158,30 @@ socket_close($mysock);
 $hhmm=mytime_hhmm();
 
 for(;;){
-  
-  // key scan
-  $inlow=multiin(0x47);
-  $inhigh=multiin(0x44);
-  for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
-
-  // key analysis
+ 
   $nkey=0;
-  for($dev=0;$dev<4;$dev++){
-    $diff=$inkey[$dev] ^ $oldin[$dev];
-    if($diff){
-      for($key=0;$key<12;$key++){
-        if($diff & $maskin[$key]){
-          $key_number[$nkey]=$key+$dev*12;
-          $key_time[$nkey]=mytime_up();
-          if($inkey[$dev] & $maskin[$key])$key_state[$nkey]=0;
-          else $key_state[$nkey]=1;
-          $nkey++;
+  if($keyoff==0){
+    // key scan
+    $inlow=multiin(0x47);
+    $inhigh=multiin(0x44);
+    for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
+    
+
+    // key analysis
+    for($dev=0;$dev<4;$dev++){
+      $diff=$inkey[$dev] ^ $oldin[$dev];
+      if($diff){
+        for($key=0;$key<12;$key++){
+          if($diff & $maskin[$key]){
+            $key_number[$nkey]=$key+$dev*12;
+            $key_time[$nkey]=mytime_up();
+            if($inkey[$dev] & $maskin[$key])$key_state[$nkey]=0;
+            else $key_state[$nkey]=1;
+            $nkey++;
+          }
         }
+        $oldin[$dev]=$inkey[$dev];
       }
-      $oldin[$dev]=$inkey[$dev];
     }
   }
 
@@ -288,6 +292,16 @@ for(;;){
             if($nn%6==5)$mytext.="\n";
           }
           $mytext.="Total ups: $count\n";
+          break;
+          
+        case "keyoff":
+          $keyoff=1;
+          $mytext.="Keyoff\n";
+          break;
+          
+        case "keyon":
+          $keyoff=1;
+          $mytext.="Keyon\n";
           break;
           
         case "inject":
