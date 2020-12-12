@@ -161,29 +161,29 @@ for(;;){
  
   $nkey=0;
   
-    // key scan
-    $inlow=multiin(0x47);
-    $inhigh=multiin(0x44);
-    for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
+  // key scan
+  $inlow=multiin(0x47);
+  $inhigh=multiin(0x44);
+  for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
+  if($keyoff==1)$inkey=$oldin;
 
-    // key analysis
-    for($dev=0;$dev<4;$dev++){
-      $diff=$inkey[$dev] ^ $oldin[$dev];
-      if($diff){
-        for($key=0;$key<12;$key++){
-          if($diff & $maskin[$key]){
-            $key_number[$nkey]=$key+$dev*12;
-            $key_time[$nkey]=mytime_up();
-            if($inkey[$dev] & $maskin[$key])$key_state[$nkey]=0;
-            else $key_state[$nkey]=1;
-            $nkey++;
-          }
+  // key analysis
+  for($dev=0;$dev<4;$dev++){
+    $diff=$inkey[$dev] ^ $oldin[$dev];
+    if($diff){
+      for($key=0;$key<12;$key++){
+        if($diff & $maskin[$key]){
+          $key_number[$nkey]=$key+$dev*12;
+          $key_time[$nkey]=mytime_up();
+          if($inkey[$dev] & $maskin[$key])$key_state[$nkey]=0;
+          else $key_state[$nkey]=1;
+          $nkey++;
         }
-        $oldin[$dev]=$inkey[$dev];
       }
+      $oldin[$dev]=$inkey[$dev];
     }
+  }
   
-
   // post inject key release
   if($inject_last){
   	for($i=0;$i<$inject_last;$i++){
