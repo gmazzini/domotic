@@ -160,12 +160,11 @@ $hhmm=mytime_hhmm();
 for(;;){
  
   $nkey=0;
-  if($keyoff==0){
+  
     // key scan
     $inlow=multiin(0x47);
     $inhigh=multiin(0x44);
     for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
-    
 
     // key analysis
     for($dev=0;$dev<4;$dev++){
@@ -183,7 +182,7 @@ for(;;){
         $oldin[$dev]=$inkey[$dev];
       }
     }
-  }
+  
 
   // post inject key release
   if($inject_last){
