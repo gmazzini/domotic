@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="53";
+$casa_version="54";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -300,7 +300,7 @@ for(;;){
           break;
           
         case "keyon":
-          $keyoff=1;
+          $keyoff=0;
           $mytext.="Keyon\n";
           break;
           
