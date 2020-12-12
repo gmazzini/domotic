@@ -490,6 +490,8 @@ for(;;){
           $mytext.="/passwd/log/n log last n lines\n";
           $mytext.="/passwd/reload reload configuration\n";
           $mytext.="/passwd/delete/n delete rule n\n";
+          $mytext.="/passwd/keyoff stop key scan n\n";
+          $mytext.="/passwd/keyon activate key scan n\n";
           $mytext.="/passwd/help this help\n";
           break;
           
