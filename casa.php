@@ -14,7 +14,7 @@
 
 // virtualkey 48-63
 
-$casa_version="54";
+$casa_version="56";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -271,7 +271,7 @@ for(;;){
       switch($in[2]){
         
         case "status":
-          $mytext.="Casa_v:$casa_version Rule_v:$config_version #rules:$nact\n";
+          $mytext.="Casa_v:$casa_version Rule_v:$config_version #rules:$nact Keyoff:$keyoff\n";
           $mytext.="hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
           $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."\n";
           $count=0;
