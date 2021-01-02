@@ -11,8 +11,9 @@
 // Conf 1=Input 0=Output 
 // device 5 BEM06 on 10.0.0.32 48-55 set x=R-47 http://10.0.0.32/k0x=1 on http://10.0.0.32/k0x=0
 // device 6 on 10.0.0.31 UDP 6723: on 56 11:0, off 56 21:0, on 57 12:0, off 57 22:0
+// device 7 BEM08 on 10.0.0.33 48-63 http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
 
-// virtualkey 48-63
+// virtualkey 64-71
 
 $casa_version="56";
 $mydir="/Users/gmazzini/Desktop/domotica/";
@@ -126,7 +127,7 @@ for($r=0;$r<$totrele;$r++){
 }
 for($j=0;$j<12;$j++)$maskin[$j]=pow(2,$j);
 for($dev=0;$dev<4;$dev++)$oldin[$dev]=65535;
-for($i=0;$i<64;$i++){
+for($i=0;$i<72;$i++){
   $key_last0[$i]=0.0;
   $key_last1[$i]=0.0;
 }
@@ -165,6 +166,12 @@ for(;;){
   $inlow=multiin(0x47);
   $inhigh=multiin(0x44);
   for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
+  $aux=file_get_contents("http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1");
+  $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs>>1)+(int)substr($aux,27+17,1);
+
+
+  
+  
   if($keyoff==1)$inkey=$oldin;
 
   // key analysis
@@ -445,7 +452,7 @@ for(;;){
           
         case "key":
           $mytext.=sprintf("Keys association\n");
-          for($n=0;$n<64;$n++)$ww[$n]=0;
+          for($n=0;$n<72;$n++)$ww[$n]=0;
           for($n=0;$n<$nact;$n++){
             $myaa=$act[$n][0];
             if($myaa==-1||$myaa==6||$myaa==7||$myaa==9)continue;
@@ -456,7 +463,7 @@ for(;;){
               $ww[$kk]++;
             }
           }
-          for($n=0;$n<64;$n++){
+          for($n=0;$n<72;$n++){
             $mytext.=sprintf("Key #:%02d",$n);
             $nn=$ww[$n];
             for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
