@@ -166,8 +166,10 @@ for(;;){
   $inlow=multiin(0x47);
   $inhigh=multiin(0x44);
   for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
-  $aux=file_get_contents("http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1");
-  $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs>>1)+(int)substr($aux,27+17,1);
+  
+  
+  // $aux=file_get_contents("http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1");
+  // $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs>>1)+(int)substr($aux,27+17,1);
 
 
   
