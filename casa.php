@@ -15,7 +15,7 @@
 
 // virtualkey 64-71
 
-$casa_version="56";
+$casa_version="57";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -171,7 +171,7 @@ for(;;){
   $inhigh=multiin(0x44);
   for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
   
-  $mymsg1="getpara[196]=1;getpara[195]=1;getpara[194]=1;getpara[193]=1;getpara[192]=1;getpara[191]=1;getpara[190]=1;getpara[189]=1;";
+  $mymsg1="getpara[189]=1;getpara[190]=1;getpara[191]=1;getpara[192]=1;getpara[193]=1;getpara[194]=1;getpara[195]=1;getpara[196]=1;";
   socket_write($myso9,$mymsg1,strlen($mymsg1));
   $aux=socket_read($myso9,1000);
   $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs << 1)+1-((int)substr($aux,15+17*$ii,1));
