@@ -9,13 +9,13 @@
 // B_Read=44H B_Conf=45H B_Write=46H
 // C_Read=47H C_Conf=48H C_Write=4AH
 // Conf 1=Input 0=Output 
-// device 5 BEM06 on 10.0.0.32 48-55 set x=R-47 http://10.0.0.32/k0x=1 on http://10.0.0.32/k0x=0
-// device 6 BEM08 on 10.0.0.33 48-55 http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
-// device 7 BEM06 on 10.0.0.34 56-63 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
+// device 5 BEM06 out on 10.0.0.32 48-55 set x=R-47 http://10.0.0.32/k0x=1 on http://10.0.0.32/k0x=0
+// device 6 BEM08 in on 10.0.0.33 48-55 http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
+// device 7 BEM06 out on 10.0.0.34 56-63 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
 
 // virtualkey 56-63
 
-$casa_version="58";
+$casa_version="59";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -151,7 +151,6 @@ for($j=48;$j<56;$j++){
   $mymsg1="k0".chr($j+1)."=0;";
   socket_write($myso1,$mymsg1,strlen($mymsg1));
   socket_write($myso2,$mymsg1,strlen($mymsg1));
-  usleep($mysleep);
 }
 socket_close($myso1);
 socket_close($myso2);
@@ -741,21 +740,25 @@ for(;;){
       usleep($mysleep);
     }
   }
+  
   // rele out on device 5
+  $myq=0;
   for($j=48;$j<56;$j++){
     if($rele[$j]!=$rele_old[$j]){
-      $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-      socket_connect($myso1,"10.0.0.32",5000);
+      if($myq==0){
+        $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+        socket_connect($myso1,"10.0.0.32",5000);
+        $myq=1;
+      }
       $mymsg1="k0".chr($j+1)."=".chr(48+$rele[$j]).";";
       socket_write($myso1,$mymsg1,strlen($mymsg1));
-      socket_close($myso1);
-      usleep($mysleep);
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
       $rele_old[$j]=$rele[$j];
     }
   }
+  if($myq==1)socket_close($myso1);
   
-  // rele out on device 7 DA COPIARE SOPRA LE MODIFICHE
+  // rele out on device 7
   $myq=0;
   for($j=56;$j<63;$j++){
     if($rele[$j]!=$rele_old[$j]){
@@ -766,7 +769,6 @@ for(;;){
       }
       $mymsg1="k0".chr($j-7)."=".chr(48+$rele[$j]).";";
       socket_write($myso1,$mymsg1,strlen($mymsg1));
-      usleep($mysleep);
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
       $rele_old[$j]=$rele[$j];
     }
