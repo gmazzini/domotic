@@ -764,7 +764,7 @@ for(;;){
         socket_connect($myso1,"10.0.0.34",5000);
         $myq=1;
       }
-      $mymsg1="k0".chr($j+1)."=".chr(48+$rele[$j]).";";
+      $mymsg1="k0".chr($j-7)."=".chr(48+$rele[$j]).";";
       socket_write($myso1,$mymsg1,strlen($mymsg1));
       usleep($mysleep);
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
