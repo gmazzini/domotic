@@ -13,8 +13,6 @@
 // device 6 BEM08 on 10.0.0.33 48-55 http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
 // device 7 BEM06 on 10.0.0.34 56-55 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
 
-// TOGLIERE on 10.0.0.31 UDP 6723: on 56 11:0, off 56 21:0, on 57 12:0, off 57 22:0
-
 // virtualkey 56-63
 
 $casa_version="58";
@@ -157,13 +155,6 @@ for($j=48;$j<56;$j++){
 }
 socket_close($myso1);
 socket_close($myso2);
-$mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
-for($j=56;$j<58;$j++){
-  $devstr=chr(50).chr($j-7).":0";
-  socket_sendto($mysock,$devstr,strlen($devstr),0,"10.0.0.31",6723);
-  usleep($mysleep);
-}
-socket_close($mysock);
 
 // actual time
 $hhmm=mytime_hhmm();
@@ -764,7 +755,7 @@ for(;;){
     }
   }
   
-  // rele out on device 7 DA PROVARE E COPIARE SOPRA
+  // rele out on device 7 DA COPIARE SOPRA LE MODIFICHE
   $myq=0;
   for($j=56;$j<63;$j++){
     if($rele[$j]!=$rele_old[$j]){
@@ -781,21 +772,7 @@ for(;;){
     }
   }
   if($myq==1)socket_close($myso1);
-  
-  
-  // VIAAAAAA rele out on device 7
-  for($j=56;$j<58;$j++){
-    if($rele[$j]!=$rele_old[$j]){
-      $devstr=chr(50-$rele[$j]).chr($j-7).":0";
-      $mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
-      socket_sendto($mysock,$devstr,strlen($devstr),0,"10.0.0.31",6723);
-      socket_close($mysock);
-      usleep($mysleep);
-      fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
-      $rele_old[$j]=$rele[$j];
-    }
-  }
-  
+    
   // update last pression
   for($j=0;$j<$nkey;$j++){
     if($key_state[$j]==0)$key_last0[$key_number[$j]]=$key_time[$j];
