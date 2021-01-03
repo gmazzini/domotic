@@ -146,7 +146,7 @@ multiout(0x4a,0x00);
 $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_connect($myso1,"10.0.0.32",5000);
 $myso2=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-socket_connect($myso1,"10.0.0.34",5000);
+socket_connect($myso2,"10.0.0.34",5000);
 for($j=48;$j<56;$j++){
   $mymsg1="k0".chr($j+1)."=0;";
   socket_write($myso1,$mymsg1,strlen($mymsg1));
