@@ -11,7 +11,7 @@
 // Conf 1=Input 0=Output 
 // device 5 BEM06 on 10.0.0.32 48-55 set x=R-47 http://10.0.0.32/k0x=1 on http://10.0.0.32/k0x=0
 // device 6 BEM08 on 10.0.0.33 48-55 http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
-// device 7 BEM06 on 10.0.0.34 56-55 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
+// device 7 BEM06 on 10.0.0.34 56-63 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
 
 // virtualkey 56-63
 
@@ -89,7 +89,7 @@ $inject_last=0;
 $threelevels_time=500;
 $mytime_ref=time()-(int)(mytime_up()/100);
 $hhmm_last=0;
-$totrele=58;
+$totrele=64;
 $commblock=0;
 $commlast=mytime_up();
 $commdelta_time=100;
@@ -283,7 +283,7 @@ for(;;){
           for($r=0;$r<$totrele;$r++){
             $mytext.=sprintf("%02d:%d ",$r,$rele[$r]);
             if($rele[$r])$count++;
-            if($r%6==5)$mytext.="\n";
+            if($r%8==7)$mytext.="\n";
           }
           $mytext.="\nTotal On: $count\n";
           break;
