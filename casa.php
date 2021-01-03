@@ -10,12 +10,14 @@
 // C_Read=47H C_Conf=48H C_Write=4AH
 // Conf 1=Input 0=Output 
 // device 5 BEM06 on 10.0.0.32 48-55 set x=R-47 http://10.0.0.32/k0x=1 on http://10.0.0.32/k0x=0
-// device 6 on 10.0.0.31 UDP 6723: on 56 11:0, off 56 21:0, on 57 12:0, off 57 22:0
-// device 7 BEM08 on 10.0.0.33 48-63 http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
+// device 6 BEM08 on 10.0.0.33 48-55 http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
+// device 7 BEM06 on 10.0.0.34 56-55 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
 
-// virtualkey 64-71
+// TOGLIERE on 10.0.0.31 UDP 6723: on 56 11:0, off 56 21:0, on 57 12:0, off 57 22:0
 
-$casa_version="57";
+// virtualkey 56-63
+
+$casa_version="58";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -131,7 +133,7 @@ for($r=0;$r<$totrele;$r++){
 }
 for($j=0;$j<12;$j++)$maskin[$j]=pow(2,$j);
 for($dev=0;$dev<5;$dev++)$oldin[$dev]=65535;
-for($i=0;$i<72;$i++){
+for($i=0;$i<64;$i++){
   $key_last0[$i]=0.0;
   $key_last1[$i]=0.0;
 }
@@ -145,12 +147,16 @@ multiout(0x46,0x00);
 multiout(0x4a,0x00);
 $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_connect($myso1,"10.0.0.32",5000);
+$myso2=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+socket_connect($myso1,"10.0.0.34",5000);
 for($j=48;$j<56;$j++){
   $mymsg1="k0".chr($j+1)."=0;";
   socket_write($myso1,$mymsg1,strlen($mymsg1));
+  socket_write($myso2,$mymsg1,strlen($mymsg1));
   usleep($mysleep);
 }
 socket_close($myso1);
+socket_close($myso2);
 $mysock=socket_create(AF_INET,SOCK_DGRAM,SOL_UDP);
 for($j=56;$j<58;$j++){
   $devstr=chr(50).chr($j-7).":0";
@@ -456,7 +462,7 @@ for(;;){
           
         case "key":
           $mytext.=sprintf("Keys association\n");
-          for($n=0;$n<72;$n++)$ww[$n]=0;
+          for($n=0;$n<64;$n++)$ww[$n]=0;
           for($n=0;$n<$nact;$n++){
             $myaa=$act[$n][0];
             if($myaa==-1||$myaa==6||$myaa==7||$myaa==9)continue;
@@ -467,7 +473,7 @@ for(;;){
               $ww[$kk]++;
             }
           }
-          for($n=0;$n<72;$n++){
+          for($n=0;$n<64;$n++){
             $mytext.=sprintf("Key #:%02d",$n);
             $nn=$ww[$n];
             for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
@@ -752,13 +758,32 @@ for(;;){
       $mymsg1="k0".chr($j+1)."=".chr(48+$rele[$j]).";";
       socket_write($myso1,$mymsg1,strlen($mymsg1));
       socket_close($myso1);
-      // $myfeedback=file_get_contents("http://10.0.0.32/k0".chr($j+1)."=".chr(48+$rele[$j]));     
       usleep($mysleep);
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
       $rele_old[$j]=$rele[$j];
     }
   }
-  // rele out on device 6
+  
+  // rele out on device 7 DA PROVARE E COPIARE SOPRA
+  $myq=0;
+  for($j=56;$j<63;$j++){
+    if($rele[$j]!=$rele_old[$j]){
+      if($myq==0){
+        $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+        socket_connect($myso1,"10.0.0.34",5000);
+        $myq=1;
+      }
+      $mymsg1="k0".chr($j+1)."=".chr(48+$rele[$j]).";";
+      socket_write($myso1,$mymsg1,strlen($mymsg1));
+      usleep($mysleep);
+      fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
+      $rele_old[$j]=$rele[$j];
+    }
+  }
+  if($myq==1)socket_close($myso1);
+  
+  
+  // VIAAAAAA rele out on device 7
   for($j=56;$j<58;$j++){
     if($rele[$j]!=$rele_old[$j]){
       $devstr=chr(50-$rele[$j]).chr($j-7).":0";
