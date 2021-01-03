@@ -175,7 +175,8 @@ for(;;){
   socket_write($myso9,$mymsg1,strlen($mymsg1));
   $aux=socket_read($myso9,1000);
   $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs>>1)+(int)substr($aux,16+17,1);
-  $inkey[4]=$zs;  
+  $inkey[4]=$zs;
+  if($zs>0)echo "$zs\n";
   if($keyoff==1)$inkey=$oldin;
 
   // key analysis
