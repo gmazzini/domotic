@@ -15,7 +15,7 @@
 
 // virtualkey 56-63
 
-$casa_version="59";
+$casa_version="60";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -166,7 +166,6 @@ for(;;){
   $inlow=multiin(0x47);
   $inhigh=multiin(0x44);
   for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
-  
   $mymsg1="getpara[189]=1;getpara[190]=1;getpara[191]=1;getpara[192]=1;getpara[193]=1;getpara[194]=1;getpara[195]=1;getpara[196]=1;";
   socket_write($myso9,$mymsg1,strlen($mymsg1));
   $aux=socket_read($myso9,1000);
@@ -494,8 +493,8 @@ for(;;){
           $mytext.="/passwd/log/n log last n lines\n";
           $mytext.="/passwd/reload reload configuration\n";
           $mytext.="/passwd/delete/n delete rule n\n";
-          $mytext.="/passwd/keyoff stop key scan n\n";
-          $mytext.="/passwd/keyon activate key scan n\n";
+          $mytext.="/passwd/keyoff key deactivation\n";
+          $mytext.="/passwd/keyon key activation\n";
           $mytext.="/passwd/help this help\n";
           break;
           
