@@ -14,6 +14,8 @@ $config_version="102";
 // offtimed_keysup: 10 h_start h_end n_key key_1 ... key_n rele minutes name
 // 3light: 11 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q v_releC releC_1 ... releC_v name
 
+// virtualkey 56-63
+
 $act=array(
 // array(6,5,20,4,12,"accendi acqua mattina"),
 // array(7,5,40,4,12,"spegni acqua mattina"),
