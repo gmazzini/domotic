@@ -1,6 +1,6 @@
 <?php
 
-$config_version="102";
+$config_version="103";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -39,7 +39,7 @@ array(1,0,23,1,35,1,46,"luna_letto"),
 array(0,0,23,4,40,25,31,45,1,42,1,24,"gm&mts"),
 array(1,0,23,2,24,63,1,27,"gm_comodino"),
 array(1,0,23,1,41,1,28,"mts_comodino"),
-array(11,0,23,1,7,1,15,2,17,21,1,14,"barraliving"),
+array(11,0,23,1,7,2,15,21,1,17,1,14,"barraliving"),
 array(1,0,23,1,8,1,14,"barraTV"),
 array(1,0,23,1,23,2,13,11,"living piccola"),
 array(1,0,23,1,14,1,23,"ripostiglio"),
