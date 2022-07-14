@@ -133,8 +133,8 @@ for($r=0;$r<$totrele;$r++){
   $rete_time[$r]=mytime_up();
 }
 for($j=0;$j<12;$j++)$maskin[$j]=pow(2,$j);
-for($dev=0;$dev<5;$dev++)$oldin[$dev]=65535;
-for($i=0;$i<64;$i++){
+for($dev=0;$dev<6;$dev++)$oldin[$dev]=65535;
+for($i=0;$i<72;$i++){
   $key_last0[$i]=0.0;
   $key_last1[$i]=0.0;
 }
