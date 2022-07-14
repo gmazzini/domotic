@@ -9,13 +9,14 @@
 // B_Read=44H B_Conf=45H B_Write=46H
 // C_Read=47H C_Conf=48H C_Write=4AH
 // Conf 1=Input 0=Output 
-// device 5 BEM06 out on 10.0.0.32 48-55 set x=R-47 http://10.0.0.32/k0x=1 on http://10.0.0.32/k0x=0
-// device 6 BEM08 in on 10.0.0.33 48-55 http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
-// device 7 BEM06 out on 10.0.0.34 56-63 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
+// device 5 BEM106 out on 10.0.0.32 48-55 set x=R-47 http://10.0.0.32/k0x=1 on http://10.0.0.32/k0x=0
+// device 6 BEM108 in on 10.0.0.33 48-55 http://10.0.0.33/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
+// device 7 BEM106 out on 10.0.0.34 56-63 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
+// device 8 BEM108 in on 10.0.0.35 56-63 http://10.0.0.35/getpara[196]=1&getpara[195]=1&getpara[194]=1&getpara[193]=1&getpara[192]=1&getpara[191]=1&getpara[190]=1&getpara[189]=1
 
-// virtualkey 56-63
+// virtualkey 56-63 rivediiiiiiiiiiii (56-63)
 
-$casa_version="60";
+$casa_version="61";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -119,9 +120,11 @@ for($dev=0;$dev<4;$dev++){
   sleep(1);
 }
 
-// open communication with BEM106
+// open communications with BEM106 6 and 8
 $myso9=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_connect($myso9,"10.0.0.33",5000);
+$myso10=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+socket_connect($myso10,"10.0.0.35",5000);
 
 // data initialization
 for($r=0;$r<$totrele;$r++){
@@ -168,13 +171,18 @@ for(;;){
   for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
   $mymsg1="getpara[189]=1;getpara[190]=1;getpara[191]=1;getpara[192]=1;getpara[193]=1;getpara[194]=1;getpara[195]=1;getpara[196]=1;";
   socket_write($myso9,$mymsg1,strlen($mymsg1));
+  socket_write($myso10,$mymsg1,strlen($mymsg1));
   $aux=socket_read($myso9,1000);
   $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs << 1)+1-((int)substr($aux,15+17*$ii,1));
   $inkey[4]=$zs;
+  $aux=socket_read($myso10,1000);
+  $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs << 1)+1-((int)substr($aux,15+17*$ii,1));
+  $inkey[5]=$zs;
+  
   if($keyoff==1)$inkey=$oldin;
 
   // key analysis
-  for($dev=0;$dev<5;$dev++){
+  for($dev=0;$dev<6;$dev++){
     $diff=$inkey[$dev] ^ $oldin[$dev];
     if($diff){
       for($key=0;$key<12;$key++){
