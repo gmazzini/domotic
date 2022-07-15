@@ -190,7 +190,7 @@ for(;;){
   for($dev=0;$dev<$totkeydev;$dev++){
     $diff=$inkey[$dev] ^ $oldin[$dev];
     if($diff){
-      for($key=$keybasefordev[$dev+1]-$keybasefordev[$dev]-1;$key>0;$key--){
+      for($key=$keybasefordev[$dev+1]-$keybasefordev[$dev]-1;$key>=0;$key--){
         if($diff & $maskin[$key]){
           $key_number[$nkey]=$key+$keybasefordev[$dev];
           $key_time[$nkey]=mytime_up();
