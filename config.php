@@ -53,7 +53,12 @@ array(1,0,23,1,51,1,57,"sala_radio_scaffale"),
 array(4,0,23,3,2,39,26,0,"spegnitutto"),
 array(3,0,23,2,5,52,20,0,24,26,27,28,31,32,33,34,35,36,39,40,41,42,44,45,46,47,57,"spegnisopra"),
 array(3,0,23,2,29,53,15,2,3,5,6,8,10,11,14,15,16,17,18,21,23,"spegnisotto"),
-array(1,0,23,1,16,4,52,51,50,49,"atelier")
+array(1,0,23,2,16,56,4,52,51,50,49,"atelier_luci"),
+array(1,0,23,1,57,1,55,"atelier_ap"),
+array(1,0,23,1,60,1,52,"atelier_luce2"),
+array(1,0,23,1,61,1,51,"atelier_luce3"),
+array(1,0,23,1,62,1,50,"atelier_luce4"),
+array(1,0,23,1,63,1,49,"atelier_luce5")  
 );
 
 ?>
