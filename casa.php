@@ -14,7 +14,7 @@
 // device 7 BEM106 out on 10.0.0.34 56-63 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
 // device 8 BEM108 in on 10.0.0.35 56-63 http://10.0.0.35/getpara[189]=1&getpara[190]=1&getpara[191]=1&getpara[192]=1&getpara[193]=1&getpara[194]=1&getpara[195]=1&getpara[196]=1
 
-// virtualkey 56-63 rivediiiiiiiiiiii (56-63)
+// virtualkey 64-71 to be checked it was 56-63
 
 $casa_version="61";
 $mydir="/Users/gmazzini/Desktop/domotica/";
@@ -36,8 +36,9 @@ function multiin($port){
 
 // key check status
 function key_checkstatus($mykey){
-  global $inkey,$maskin;
-  if($inkey[(int)($mykey/12)] & $maskin[$mykey%12])return 0;
+  global $inkey,$maskin,$keybasefordev,$keyassigneddev;
+  $dev=$keyassigneddev[$mykey];
+  if($inkey[$dev] & $maskin[$mykey-$keybasefordev[$dev]])return 0;
   else return 1;
 }
 
@@ -96,6 +97,8 @@ $commlast=mytime_up();
 $commdelta_time=100;
 $keyoff=0;
 include $mydir."password.php";
+$totkeydev=6;
+$keybasefordev=[0,12,24,36,48,56,64];
 
 myconfig();
 
@@ -133,10 +136,12 @@ for($r=0;$r<$totrele;$r++){
   $rete_time[$r]=mytime_up();
 }
 for($j=0;$j<12;$j++)$maskin[$j]=pow(2,$j);
-for($dev=0;$dev<6;$dev++)$oldin[$dev]=65535;
+for($dev=0;$dev<$totkeydev;$dev++)$oldin[$dev]=65535;
 for($i=0;$i<72;$i++){
   $key_last0[$i]=0.0;
   $key_last1[$i]=0.0;
+  for($j=$totkeydev;$j>0;$j--)if($i>=$keybasefordev[$j])break;
+  $keyassigneddev[$i]=$j;
 }
 
 // card initialization
@@ -182,12 +187,12 @@ for(;;){
   if($keyoff==1)$inkey=$oldin;
 
   // key analysis
-  for($dev=0;$dev<6;$dev++){
+  for($dev=0;$dev<$totkeydev;$dev++){
     $diff=$inkey[$dev] ^ $oldin[$dev];
     if($diff){
-      for($key=0;$key<12;$key++){
+      for($key=$keybasefordev[$dev+1]-$keybasefordev[$dev]-1;$key>0;$key--){
         if($diff & $maskin[$key]){
-          $key_number[$nkey]=$key+$dev*12;
+          $key_number[$nkey]=$key+$keybasefordev[$dev];
           $key_time[$nkey]=mytime_up();
           if($inkey[$dev] & $maskin[$key])$key_state[$nkey]=0;
           else $key_state[$nkey]=1;
@@ -296,7 +301,7 @@ for(;;){
           
         case "keystatus":
           $count=0;
-          for($nn=0;$nn<56;$nn++){
+          for($nn=0;$nn<64;$nn++){
             $mm=key_checkstatus($nn);
             $mytext.=sprintf("%02d:%d ",$nn,$mm);
             if($mm)$count++;
