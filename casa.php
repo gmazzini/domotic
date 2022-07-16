@@ -755,21 +755,20 @@ for(;;){
   }
   
   // rele out on device 5
-  $myq=0;
+  $mymsg1="";
   for($j=48;$j<56;$j++){
     if($rele[$j]!=$rele_old[$j]){
-      if($myq==0){
-        $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-        socket_connect($myso1,"10.0.0.32",5000);
-        $myq=1;
-      }
-      $mymsg1="k0".chr($j+1)."=".chr(48+$rele[$j]).";";
-      socket_write($myso1,$mymsg1,strlen($mymsg1));
+      $mymsg1.="k0".chr($j-7)."=".chr(48+$rele[$j]).";";
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
       $rele_old[$j]=$rele[$j];
     }
   }
-  if($myq==1)socket_close($myso1);
+  if($mymsg1!=""){
+    $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+    socket_connect($myso1,"10.0.0.32",5000);
+    socket_write($myso1,$mymsg1,strlen($mymsg1));
+    socket_close($myso1);
+  }
   
   // rele out on device 7
   $mymsg1="";
