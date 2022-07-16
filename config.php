@@ -1,6 +1,6 @@
 <?php
 
-$config_version="108";
+$config_version="109";
 
 // 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -27,7 +27,7 @@ array(8,7,22,2,17,54,1,25,"campanello"),
 array(1,0,23,1,19,1,16,"cucina"),
 array(1,0,23,1,20,1,18,"barracucina"),
 array(1,0,23,1,22,2,8,10,"bagno_terra"),
-array(1,0,23,1,15,5,4,30,38,53,54,"esterne"),
+array(1,0,23,2,15,58,5,4,30,38,53,54,"esterne"),
 array(0,0,23,3,3,36,32,1,45,2,31,47,"scala"),
 array(1,0,23,1,28,2,35,32,"bagno_sopra"),
 array(11,0,23,2,1,10,2,6,3,1,2,2,5,3,"barradinner"),
