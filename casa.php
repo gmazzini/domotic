@@ -14,9 +14,9 @@
 // device 7 BEM106 out on 10.0.0.34 56-63 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0
 // device 8 BEM108 in on 10.0.0.35 56-63 http://10.0.0.35/getpara[189]=1&getpara[190]=1&getpara[191]=1&getpara[192]=1&getpara[193]=1&getpara[194]=1&getpara[195]=1&getpara[196]=1
 
-// virtualkey 64-71 to be checked it was 56-63
+// virtualkey 64-71
 
-$casa_version="61";
+$casa_version="62";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -464,7 +464,7 @@ for(;;){
           
         case "key":
           $mytext.=sprintf("Keys association\n");
-          for($n=0;$n<64;$n++)$ww[$n]=0;
+          for($n=0;$n<72;$n++)$ww[$n]=0;
           for($n=0;$n<$nact;$n++){
             $myaa=$act[$n][0];
             if($myaa==-1||$myaa==6||$myaa==7||$myaa==9)continue;
@@ -475,7 +475,7 @@ for(;;){
               $ww[$kk]++;
             }
           }
-          for($n=0;$n<64;$n++){
+          for($n=0;$n<72;$n++){
             $mytext.=sprintf("Key #:%02d",$n);
             $nn=$ww[$n];
             for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
