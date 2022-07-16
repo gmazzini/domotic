@@ -772,7 +772,7 @@ for(;;){
   
   // rele out on device 7
   $mymsg1="";
-  for($j=56;$j<63;$j++){
+  for($j=56;$j<64;$j++){
     if($rele[$j]!=$rele_old[$j]){
       $mymsg1.="k0".chr($j-7)."=".chr(48+$rele[$j]).";";
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
