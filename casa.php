@@ -16,7 +16,7 @@
 
 // virtualkey 64-71
 
-$casa_version="63";
+$casa_version="64";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -92,12 +92,9 @@ $threelevels_time=500;
 $mytime_ref=time()-(int)(mytime_up()/100);
 $hhmm_last=0;
 $totrele=64;
-$commblock=0;
-$commlast=mytime_up();
-$commdelta_time=100;
+$totkeydev=6;
 $keyoff=0;
 include $mydir."password.php";
-$totkeydev=6;
 $keybasefordev=[0,12,24,36,48,56,64];
 
 myconfig();
@@ -106,12 +103,8 @@ myconfig();
 fprintf($fplog,"Casa:$casa_version, Config:$config_version, #Rules:$nact, Creator GM\n");
 fprintf($fplog,"Starting on %s\n",mytime_print(mytime_up()));
 
-// open socket
-$sock=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-socket_set_option($sock,SOL_SOCKET,SO_REUSEADDR,1);
-socket_set_nonblock($sock);
-socket_bind($sock,"10.0.0.4",3333);
-socket_listen($sock);
+// open receive socket
+$serv=stream_socket_server("tcp://10.0.0.4:3333");
 
 // open communications to 4 devices
 for($dev=0;$dev<4;$dev++){
@@ -273,12 +266,11 @@ for(;;){
   }
   
   // command analysis
-  $client=@socket_accept($sock);
-  if(($client!==false)&&($commblock==0)&&(mytime_up()-$commlast>$commdelta_time)){
-    $commblock=1;
-    $commlast=mytime_up();
+  $conn=@stream_socket_accept($serv,0);
+  if($conn!==false && pcntl_fork()==0){
+      
     $mytext="<html><body><pre>";
-    $aux=trim(socket_read($client,2048));
+    $aux=trim(fread($conn,2048));
     $instart=strpos($aux,"GET")+4;
     $inlen=strpos($aux,"HTTP")-$instart-1;
     $mycmd=substr($aux,$instart,$inlen);
@@ -518,16 +510,15 @@ for(;;){
       }
     }
     $mytext.="</pre></body></html>";
-    $mytextlen=strlen($mytext);
-    socket_write($client,"HTTP/1.1 200 OK\r\n");
-    socket_write($client,"Cache-Control: no-cache\r\n");
-    socket_write($client,"Content-Type: text/html\r\n");
-    socket_write($client,"Content-Length: $mytextlen\r\n");
-    socket_write($client,"Connection: Close\r\n");
-    socket_write($client,"\r\n");
-    socket_write($client,$mytext);
-    socket_close($client);
-    $commblock=0;
+    $myout="HTTP/1.1 200 OK\r\n";
+    $myout.="Cache-Control: no-cache\r\n";
+    $myout.="Content-Type: text/html\r\n";
+    $myout.="Content-Length: ".strlen($mytext)."\r\n";
+    $myout.="Connection: Close\r\n";
+    $myout.="\r\n$mytext";
+    fwrite($conn,$myout);
+    fclose($conn);
+    exit(0);
   }
   
   if($nkey){
