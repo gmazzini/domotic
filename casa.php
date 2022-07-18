@@ -16,7 +16,7 @@
 
 // virtualkey 64-71
 
-$casa_version="64";
+$casa_version="65";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
@@ -275,7 +275,7 @@ for(;;){
     $inlen=strpos($aux,"HTTP")-$instart-1;
     $mycmd=substr($aux,$instart,$inlen);
     $in=explode("/",$mycmd);
-    if($in[1]!=$passwd)$mytext.="Wrong Password\n".$aux."\n";
+    if(isset($in[1]) || $in[1]!=$passwd)$mytext.="Wrong Parameters\n".$aux."\n";
     else {
       switch($in[2]){
         
