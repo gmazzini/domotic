@@ -497,7 +497,7 @@ for(;;){
           break;
           
         case "reload":
-          myconfig();
+          $mysharedtext.="myconfig()\n";
           $mytext.="Load Rule_v:$config_version #rules:$nact\n";
           break;
           
@@ -522,6 +522,9 @@ for(;;){
           $mytext.="<i>Wrong Command</i>\n";
           break;
       }
+      $mysharedtext.="unlink('".$fileshared."');\n";
+      $mysharedtext.="touch('".$fileshared."');\n";
+      file_put_contents($fileshared,"<?php $mysharedtext ?>");
     }
     $mytext.="</pre></body></html>";
     $myout="HTTP/1.1 200 OK\r\n";
@@ -532,9 +535,6 @@ for(;;){
     $myout.="\r\n$mytext";
     fwrite($conn,$myout);
     fclose($conn);
-    $mysharedtext.="unlink('".$fileshared."');\n";
-    $mysharedtext.="touch('".$fileshared."');\n";
-    file_put_contents($fileshared,"<?php $mysharedtext ?>");
     exit(0);
   }
   
