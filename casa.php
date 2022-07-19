@@ -97,6 +97,7 @@ $keyoff=0;
 $fileshared="q3.php";
 include $mydir."password.php";
 $keybasefordev=[0,12,24,36,48,56,64];
+touch($fileshared);
 
 myconfig();
 
