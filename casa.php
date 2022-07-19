@@ -180,8 +180,6 @@ for(;;){
   $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs << 1)+1-((int)substr($aux,15+17*$ii,1));
   $inkey[5]=$zs;
   
-  include "q3.php";
-  
   if($keyoff==1)$inkey=$oldin;
 
   // key analysis
@@ -327,12 +325,12 @@ for(;;){
           
         case "inject":
           $puls=(int)$in[3];
-          $key_number[$nkey]=$puls;
-          $key_time[$nkey]=mytime_up();
-          $key_state[$nkey]=1;
-          $nkey++;
-          $inject_key[$inject_last]=$puls;
-          $inject_last++;
+          $mysharedtext.="\$key_number[".$nkey."]=".$puls.";\n";
+          $mysharedtext.="\$key_time[".$nkey."]=".mytime_up().";\n";
+          $mysharedtext.="\$key_state[".$nkey."]=1;\n";
+          $mysharedtext.="\$nkey++;\n";
+          $mysharedtext.="\$inject_key[".$inject_last."]=".$puls.";\n";
+          $mysharedtext.="\$inject_last++;\n";
           $mytext.="Inject key <b>$puls</b>\n";
           break;
           
@@ -538,6 +536,7 @@ for(;;){
     exit(0);
   }
   
+  include "$fileshared";
   if($nkey){
     for($i=0;$i<$nkey;$i++)fprintf($fplog,"key: %02d %01d %s\n",$key_number[$i],$key_state[$i],mytime_print($key_time[$i]));
     // action analysis
