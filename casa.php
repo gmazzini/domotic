@@ -313,12 +313,12 @@ for(;;){
           break;
           
         case "keyoff":
-          file_put_contents("q3.php","<?php keyoff=1; ?>");
+          file_put_contents("q3.php","<?php \$keyoff=1; ?>");
           $mytext.="Key set to off\n";
           break;
           
         case "keyon":
-          ile_put_contents("q3.php","<?php keyoff=0; ?>");
+          ile_put_contents("q3.php","<?php \$keyoff=0; ?>");
           $mytext.="Keyset to on\n";
           break;
           
