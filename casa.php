@@ -277,12 +277,12 @@ for(;;){
     $in=explode("/",$mycmd);
     if(!isset($in[1]) || $in[1]!=$passwd)$mytext.="Wrong Parameters\n".$aux."\n";
     else {
+      $mytext.="<i>Casa_v:$casa_version Rule_v:$config_version #rules:$nact Keyoff:$keyoff</i>\n";
+      $mytext.="<i>hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
+      $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."</i>\n";
       switch($in[2]){
         
         case "status":
-          $mytext.="<i>Casa_v:$casa_version Rule_v:$config_version #rules:$nact Keyoff:$keyoff</i>\n";
-          $mytext.="<i>hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
-          $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."</i>\n";
           $mytext.="<b>Relais Status</b>\n";
           $count=0;
           for($r=0;$r<$totrele;$r++){
@@ -297,9 +297,6 @@ for(;;){
           break;
           
         case "keystatus":
-          $mytext.="<i>Casa_v:$casa_version Rule_v:$config_version #rules:$nact Keyoff:$keyoff</i>\n";
-          $mytext.="<i>hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
-          $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."</i>\n";
           $mytext.="<b>Key Status</b>\n";
           $count=0;
           for($nn=0;$nn<64;$nn++){
