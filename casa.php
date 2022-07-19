@@ -291,7 +291,7 @@ for(;;){
           $count=0;
           for($r=0;$r<$totrele;$r++){
             if($rele[$r]){
-              $mytext.=sprintf("%02d:<b>1</b> ",$r);
+              $mytext.=sprintf("%02d:<b style='color:red;'>1</b> ",$r);
               $count++;
             }
             else $mytext.=sprintf("%02d:0 ",$r);
@@ -373,10 +373,10 @@ for(;;){
                 $mytext.=sprintf("Key #:%02d",$nn);
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
                 $mytext.="\n";
-                $mytext.=sprintf("Rele_A #:%02d",$mm);
+                $mytext.=sprintf("Relais_A #:%02d",$mm);
                 for($cm=0;$cm<$mm;$cm++)$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
                 $mytext.="\n";
-                $mytext.=sprintf("Rele_B #:%02d",$qq);
+                $mytext.=sprintf("Relais_B #:%02d",$qq);
                 for($cq=0;$cq<$qq;$cq++)$mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
                 $mytext.="\n\n";
                 break;
@@ -391,13 +391,13 @@ for(;;){
                 $mytext.=sprintf("Key #:%02d",$nn);
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
                 $mytext.="\n";
-                $mytext.=sprintf("Rele_A #:%02d",$mm);
+                $mytext.=sprintf("Relais_A #:%02d",$mm);
                 for($cm=0;$cm<$mm;$cm++)$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
                 $mytext.="\n";
-                $mytext.=sprintf("Rele_B #:%02d",$qq);
+                $mytext.=sprintf("Relais_B #:%02d",$qq);
                 for($cq=0;$cq<$qq;$cq++)$mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
                 $mytext.="\n";
-                $mytext.=sprintf("Rele_C #:%02d",$vv);
+                $mytext.=sprintf("Relais_C #:%02d",$vv);
                 for($cv=0;$cv<$vv;$cv++)$mytext.=sprintf(" %02d:%02d",$cv,$act[$n][$cv+7+$nn+$mm+$qq]);
                 $mytext.="\n\n";
                 break;  
@@ -418,7 +418,7 @@ for(;;){
                 $mytext.=sprintf("Key #:%02d",$nn);
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
                 $mytext.="\n";
-                $mytext.=sprintf("Rele #:%02d",$mm);
+                $mytext.=sprintf("Relais #:%02d",$mm);
                 for($cm=0;$cm<$mm;$cm++)$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
                 $mytext.="\n\n";
                 break;
@@ -431,7 +431,7 @@ for(;;){
                 $mytext.=sprintf("Key #:%02d",$nn);
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
                 $mytext.="\n";
-                $mytext.=sprintf("Rele #:%02d",$mm);
+                $mytext.=sprintf("Relais #:%02d",$mm);
                 for($cm=0;$cm<$mm;$cm++)$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
                 $mytext.="\n\n";
                 break;
@@ -439,26 +439,26 @@ for(;;){
               case 6:
                 $mytext.=sprintf("Rule: %02d Type: <i>injectifoff</i> Name: <b>%s</b>\n",$n,$act[$n][5]);
                 $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-                $mytext.=sprintf("Key: %02d Releifoff %02d\n\n",$act[$n][3],$act[$n][4]);
+                $mytext.=sprintf("Key: %02d Relaisifoff %02d\n\n",$act[$n][3],$act[$n][4]);
                 break;
                 
               case 7:
                 $mytext.=sprintf("Rule: %02d Type: <i>injectifon</i> Name: <b>%s</b>\n",$n,$act[$n][5]);
                 $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-                $mytext.=sprintf("Key: %02d Releifon %02d\n\n",$act[$n][3],$act[$n][4]);
+                $mytext.=sprintf("Key: %02d Relaisifon %02d\n\n",$act[$n][3],$act[$n][4]);
                 break;
                 
               case 9:
                 $mytext.=sprintf("Rule: %02d Type: <i>offtimed</i> Name: <b>%s</b>\n",$n,$act[$n][5]);
                 $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-                $mytext.=sprintf("Releoff: %02d After(min): %02d\n\n",$act[$n][3],$act[$n][4]);
+                $mytext.=sprintf("Relaisoff: %02d After(min): %02d\n\n",$act[$n][3],$act[$n][4]);
                 break;
                 
               case 10:
                 $nn=$act[$n][3];
                 $mytext.=sprintf("Rule: %02d Type: <i>offtimed_keysup</i> Name: <b>%s</b>\n",$n,$act[$n][6+$nn]);
                 $mytext.=sprintf("HH_start: %02d, HH_end: %02d\n",$act[$n][1],$act[$n][2]);
-                $mytext.=sprintf("Releoff: %02d After(min): %02d\n",$act[$n][4+$nn],$act[$n][5+$nn]);
+                $mytext.=sprintf("Relaisoff: %02d After(min): %02d\n",$act[$n][4+$nn],$act[$n][5+$nn]);
                 $mytext.=sprintf("Key #:%02d",$nn);
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
                 $mytext.="\n\n";
