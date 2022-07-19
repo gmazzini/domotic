@@ -94,6 +94,7 @@ $hhmm_last=0;
 $totrele=64;
 $totkeydev=6;
 $keyoff=0;
+$fileshared="q3.php";
 include $mydir."password.php";
 $keybasefordev=[0,12,24,36,48,56,64];
 
@@ -313,12 +314,12 @@ for(;;){
           break;
           
         case "keyoff":
-          file_put_contents("q3.php","<?php \$keyoff=1; ?>");
+          file_put_contents($fileshared,"<?php \$keyoff=1; ?>");
           $mytext.="Key set to off\n";
           break;
           
         case "keyon":
-          ile_put_contents("q3.php","<?php \$keyoff=0; ?>");
+          file_put_contents($fileshared,"<?php \$keyoff=0; ?>");
           $mytext.="Keyset to on\n";
           break;
           
@@ -334,12 +335,12 @@ for(;;){
           break;
           
         case "set":
-          myreleset((int)$in[3],1);
+          file_put_contents($fileshared,"<?php myreleset((int)\$in[3],1); ?>");
           $mytext.="Set rele <b>$in[3]</b>\n";
           break;
           
         case "reset":
-          myreleset((int)$in[3],0);
+          file_put_contents($fileshared,"<?php myreleset((int)\$in[3],0); ?>");
           $mytext.="Reset rele <b>$in[3]</b>\n";
           break;
           
