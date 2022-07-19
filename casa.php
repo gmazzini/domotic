@@ -280,27 +280,37 @@ for(;;){
       switch($in[2]){
         
         case "status":
-          $mytext.="Casa_v:$casa_version Rule_v:$config_version #rules:$nact Keyoff:$keyoff\n";
-          $mytext.="hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
-          $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."\n";
+          $mytext.="<i>Casa_v:$casa_version Rule_v:$config_version #rules:$nact Keyoff:$keyoff</i>\n";
+          $mytext.="<i>hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
+          $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."</i>\n";
+          $mytext.="<b>Relais Status</b>\n";
           $count=0;
           for($r=0;$r<$totrele;$r++){
-            $mytext.=sprintf("%02d:%d ",$r,$rele[$r]);
-            if($rele[$r])$count++;
+            if($rele[$r]){
+              $mytext.=sprintf("%02d:<b>1</b> ",$r);
+              $count++;
+            }
+            else $mytext.=sprintf("%02d:0 ",$r);
             if($r%8==7)$mytext.="\n";
           }
-          $mytext.="\nTotal On: $count\n";
+          $mytext.="Total On: <b>$count</b>\n";
           break;
           
         case "keystatus":
+          $mytext.="<i>Casa_v:$casa_version Rule_v:$config_version #rules:$nact Keyoff:$keyoff</i>\n";
+          $mytext.="<i>hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
+          $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."</i>\n";
+          $mytext.="<b>Key Status</b>\n";
           $count=0;
           for($nn=0;$nn<64;$nn++){
-            $mm=key_checkstatus($nn);
-            $mytext.=sprintf("%02d:%d ",$nn,$mm);
-            if($mm)$count++;
+            if(key_checkstatus($nn)){
+              $mytext.=sprintf("%02d:<b>1</b> ",$nn);
+              $count++;
+            }
+            else $mytext.=sprintf("%02d:0 ",$nn);
             if($nn%8==7)$mytext.="\n";
           }
-          $mytext.="Total Pressed: $count\n";
+          $mytext.="Total Pressed: <b>$count</b>\n";
           break;
           
         case "keyoff":
