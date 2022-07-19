@@ -305,7 +305,7 @@ for(;;){
           $count=0;
           for($nn=0;$nn<64;$nn++){
             if(key_checkstatus($nn)){
-              $mytext.=sprintf("%02d:<b>1</b> ",$nn);
+              $mytext.=sprintf("%02d:<b style='color:red;'>1</b> ",$nn);
               $count++;
             }
             else $mytext.=sprintf("%02d:0 ",$nn);
@@ -374,10 +374,16 @@ for(;;){
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
                 $mytext.="\n";
                 $mytext.=sprintf("Relais_A #:%02d",$mm);
-                for($cm=0;$cm<$mm;$cm++)$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                for($cm=0;$cm<$mm;$cm++){
+                  if($rele[$act[$n][$cm+5+$nn]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cm,$act[$n][$cm+5+$nn]);
+                  else $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                }
                 $mytext.="\n";
                 $mytext.=sprintf("Relais_B #:%02d",$qq);
-                for($cq=0;$cq<$qq;$cq++)$mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
+                for($cq=0;$cq<$qq;$cq++){
+                  if($rele[$act[$n][$cq+6+$nn+$mm]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cq,$act[$n][$cq+6+$nn+$mm]);
+                  else $mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
+                }
                 $mytext.="\n\n";
                 break;
                 
@@ -392,13 +398,22 @@ for(;;){
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
                 $mytext.="\n";
                 $mytext.=sprintf("Relais_A #:%02d",$mm);
-                for($cm=0;$cm<$mm;$cm++)$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                for($cm=0;$cm<$mm;$cm++){
+                  if($rele[$act[$n][$cm+5+$nn]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cm,$act[$n][$cm+5+$nn]);
+                  else $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                }
                 $mytext.="\n";
                 $mytext.=sprintf("Relais_B #:%02d",$qq);
-                for($cq=0;$cq<$qq;$cq++)$mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
+                for($cq=0;$cq<$qq;$cq++){
+                  if($rele[$act[$n][$cq+6+$nn+$mm]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cq,$act[$n][$cq+6+$nn+$mm]);
+                  else $mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
+                }
                 $mytext.="\n";
                 $mytext.=sprintf("Relais_C #:%02d",$vv);
-                for($cv=0;$cv<$vv;$cv++)$mytext.=sprintf(" %02d:%02d",$cv,$act[$n][$cv+7+$nn+$mm+$qq]);
+                for($cv=0;$cv<$vv;$cv++){
+                  if($rele[$act[$n][$cv+7+$nn+$mm+$qq]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cv,$act[$n][$cv+7+$nn+$mm+$qq]);
+                  else $mytext.=sprintf(" %02d:%02d",$cv,$act[$n][$cv+7+$nn+$mm+$qq]);
+                }
                 $mytext.="\n\n";
                 break;  
                
@@ -419,7 +434,10 @@ for(;;){
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
                 $mytext.="\n";
                 $mytext.=sprintf("Relais #:%02d",$mm);
-                for($cm=0;$cm<$mm;$cm++)$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                for($cm=0;$cm<$mm;$cm++){
+                  if($rele[$act[$n][$cm+5+$nn]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cm,$act[$n][$cm+5+$nn]);
+                  else $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                }
                 $mytext.="\n\n";
                 break;
                 
@@ -432,7 +450,10 @@ for(;;){
                 for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d",$cn,$act[$n][$cn+4]);
                 $mytext.="\n";
                 $mytext.=sprintf("Relais #:%02d",$mm);
-                for($cm=0;$cm<$mm;$cm++)$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                for($cm=0;$cm<$mm;$cm++){
+                  if($rele[$act[$n][$cm+5+$nn]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cm,$act[$n][$cm+5+$nn]);
+                  else $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+                }
                 $mytext.="\n\n";
                 break;
                 
