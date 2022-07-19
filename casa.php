@@ -16,7 +16,7 @@
 
 // virtualkey 64-71
 
-$casa_version="65";
+$casa_version="66";
 $mydir="/Users/gmazzini/Desktop/domotica/";
 
 // multiple output
