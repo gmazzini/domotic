@@ -97,6 +97,7 @@ $keyoff=0;
 $fileshared="q3.php";
 include $mydir."password.php";
 $keybasefordev=[0,12,24,36,48,56,64];
+unlink("$fileshared");
 touch("$fileshared");
 
 myconfig();
@@ -495,7 +496,7 @@ for(;;){
           break;
           
         case "reload":
-          $mysharedtext.="myconfig()\n";
+          $mysharedtext.="myconfig();\n";
           $mytext.="Load Rule_v:$config_version #rules:$nact\n";
           break;
           
