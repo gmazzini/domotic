@@ -178,6 +178,8 @@ for(;;){
   $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs << 1)+1-((int)substr($aux,15+17*$ii,1));
   $inkey[5]=$zs;
   
+  include "q3.php";
+  
   if($keyoff==1)$inkey=$oldin;
 
   // key analysis
@@ -311,13 +313,13 @@ for(;;){
           break;
           
         case "keyoff":
-          $keyoff=1;
-          $mytext.="Keyoff\n";
+          file_put_contents("q3.php","<?php keyoff=1; ?>");
+          $mytext.="Key set to off\n";
           break;
           
         case "keyon":
-          $keyoff=0;
-          $mytext.="Keyon\n";
+          ile_put_contents("q3.php","<?php keyoff=0; ?>");
+          $mytext.="Keyset to on\n";
           break;
           
         case "inject":
