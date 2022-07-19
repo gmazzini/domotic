@@ -531,8 +531,8 @@ for(;;){
     $myout.="\r\n$mytext";
     fwrite($conn,$myout);
     fclose($conn);
-    $mysharedtext.="unlink('".$fileshared."')";
-    $mysharedtext.="touch('".$fileshared."')";
+    $mysharedtext.="unlink('".$fileshared."');\n";
+    $mysharedtext.="touch('".$fileshared."');\n";
     file_put_contents($fileshared,"<?php $mysharedtext ?>");
     exit(0);
   }
