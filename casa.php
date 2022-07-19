@@ -283,6 +283,7 @@ for(;;){
       $mytext.="<i>Casa_v:$casa_version Rule_v:$config_version #rules:$nact Keyoff:$keyoff</i>\n";
       $mytext.="<i>hh:".sprintf("%02d",$hhmm[0])." mm:".sprintf("%02d",$hhmm[1]);
       $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."</i>\n";
+      $mysharedtext="";
       switch($in[2]){
         
         case "status":
@@ -314,12 +315,12 @@ for(;;){
           break;
           
         case "keyoff":
-          file_put_contents($fileshared,"<?php \$keyoff=1; ?>");
+          $mysharedtext.="\$keyoff=1;\n";
           $mytext.="Key set to off\n";
           break;
           
         case "keyon":
-          file_put_contents($fileshared,"<?php \$keyoff=0; ?>");
+          $mysharedtext.="\$keyoff=0;\n";
           $mytext.="Keyset to on\n";
           break;
           
@@ -335,22 +336,22 @@ for(;;){
           break;
           
         case "set":
-          file_put_contents($fileshared,"<?php myreleset((int)\$in[3],1); ?>");
+          $mysharedtext.="myreleset(".(int)$in[3].",1);\n";
           $mytext.="Set rele <b>$in[3]</b>\n";
           break;
           
         case "reset":
-          file_put_contents($fileshared,"<?php myreleset((int)\$in[3],0); ?>");
+          $mysharedtext.="myreleset(".(int)$in[3].",0);\n";
           $mytext.="Reset rele <b>$in[3]</b>\n";
           break;
           
         case "delete":
-          $act[(int)$in[3]][0]=-1;
+          $mysharedtext.="\$act[".(int)$in[3]."][0]=-1;\n";
           $mytext.="Delete rule <b>$in[3]</b>\n";
           break;
           
         case "switchoff":
-          for($r=0;$r<$totrele;$r++)myreleset($r,0);
+          for($r=0;$r<$totrele;$r++)$mysharedtext.="myreleset(".$r.",0);\n";
           $mytext.="Reset rele all\n";
           break;
           
@@ -530,6 +531,7 @@ for(;;){
     $myout.="\r\n$mytext";
     fwrite($conn,$myout);
     fclose($conn);
+    file_put_contents($fileshared,"<?php $mysharedtext ?>");
     exit(0);
   }
   
