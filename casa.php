@@ -526,7 +526,7 @@ for(;;){
             if($rele[n])$mytext.=sprintf("Relay #:<b style='color:red;'>%02d</b>",$n);
             else $mytext.=sprintf("Relay #:%02d",$n);
             $nn=$ww[$n];
-            for($cn=0;$cn<$nn;$cn++)mytext.=sprintf(" %d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
+            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
             $mytext.="\n";
           }
           break;
