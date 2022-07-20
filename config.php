@@ -2,17 +2,17 @@
 
 $config_version="109";
 
-// 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
-// onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
-// on: 2 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
-// off: 3 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
-// alloff: 4 h_start h_end n_key key_1 ... key_n skip_rele rele_1 ... rele_skip name
-// injectifoff: 6 hh mm key releifoff name
-// injectifon: 7 hh mm key releifon name
-// push: 8 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
-// offtimed: 9 h_start h_end rele minutes name
-// offtimed_keysup: 10 h_start h_end n_key key_1 ... key_n rele minutes name
-// 3light: 11 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q v_releC releC_1 ... releC_v name
+// 0> 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
+// 1> onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
+// 2> on: 2 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
+// 3> off: 3 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
+// 4> alloff: 4 h_start h_end n_key key_1 ... key_n skip_rele rele_1 ... rele_skip name
+// 6> injectifoff: 6 hh mm key releifoff name
+// 7> injectifon: 7 hh mm key releifon name
+// 8> push: 8 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
+// 9> offtimed: 9 h_start h_end rele minutes name
+// 10> offtimed_keysup: 10 h_start h_end n_key key_1 ... key_n rele minutes name
+// 11> 3light: 11 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q v_releC releC_1 ... releC_v name
 
 // virtualkey 56-63
 
