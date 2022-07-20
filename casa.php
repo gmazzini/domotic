@@ -504,7 +504,7 @@ for(;;){
           for($n=0;$n<72;$n++){
             $mytext.=sprintf("Key #:%02d",$n);
             $nn=$ww[$n];
-            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
+            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
             $mytext.="\n";
           }
           break;
@@ -515,18 +515,65 @@ for(;;){
           for($n=0;$n<$nact;$n++){
             $myaa=$act[$n][0];
             if($myaa==-1||$myaa==6||$myaa==7||$myaa==9)continue;
-            $nn=$act[$n][4+$act[$n][3]];
-            for($qq=0;$qq<$nn;$qq++){
-              $kk=$act[$n][5+$act[$n][3]+$qq];
-              $www[$kk][$ww[$kk]]=$n;
-              $ww[$kk]++;
+            switch($myaa){
+              case 0:
+                $nn=$act[$n][3];
+                $mm=$act[$n][4+$nn];
+                $qq=$act[$n][5+$mm+$nn];
+                for($cm=0;$cm<$mm;$cm++){
+                   $kk=$act[$n][$cm+5+$nn];
+                   $www[$kk][$ww[$kk]]=$n; $ww[$kk]++;
+                }
+                for($cq=0;$cq<$qq;$cq++){
+                  $kk=$act[$n][$cq+6+$nn+$mm];
+                  $www[$kk][$ww[$kk]]=$n; $ww[$kk]++;
+                }
+                break;
+              case 11:
+                $nn=$act[$n][3];
+                $mm=$act[$n][4+$nn];
+                $qq=$act[$n][5+$mm+$nn];
+                $vv=$act[$n][6+$mm+$nn+$qq];
+                for($cm=0;$cm<$mm;$cm++){
+                  $kk=$act[$n][$cm+5+$nn];
+                  $www[$kk][$ww[$kk]]=$n; $ww[$kk]++;
+                }
+                for($cq=0;$cq<$qq;$cq++){
+                  $kk=$act[$n][$cq+6+$nn+$mm];
+                  $www[$kk][$ww[$kk]]=$n; $ww[$kk]++;
+                } 
+                for($cv=0;$cv<$vv;$cv++){
+                  $kk=$act[$n][$cv+7+$nn+$mm+$qq];
+                  $www[$kk][$ww[$kk]]=$n; $ww[$kk]++;
+                }
+                break;
+              case 1:
+              case 2:
+              case 3:
+              case 8:
+                $nn=$act[$n][3];
+                $mm=$act[$n][4+$nn];
+                for($cm=0;$cm<$mm;$cm++){
+                  $kk=$act[$n][$cm+5+$nn];
+                  $www[$kk][$ww[$kk]]=$n; $ww[$kk]++;
+                }
+                break;
+              case 4:
+                $nn=$act[$n][3];
+                $mm=$act[$n][4+$nn];
+                for($cm=0;$cm<$mm;$cm++){
+                  $kk=$act[$n][$cm+5+$nn];
+                  $www[$kk][$ww[$kk]]=$n; $ww[$kk]++;
+                }
+                break;
+                
             }
           }
           for($n=0;$n<64;$n++){
             if($rele[$n])$mytext.=sprintf("Relay #:<b style='color:red;'>%02d</b>",$n);
             else $mytext.=sprintf("Relay #:%02d",$n);
             $nn=$ww[$n];
-            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
+            for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
             $mytext.="\n";
           }
           break;
