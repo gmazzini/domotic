@@ -1,6 +1,6 @@
 <?php
 
-$config_version="110";
+$config_version="111";
 
 // 0> 3level: 0 h_start h_end n_key key_1 ... key_n m_releA releA_1 ... releA_m q_releB releB_1 ... releB_q name
 // 1> onoff: 1 h_start h_end n_key key_1 ... key_n m_rele rele_1 ... rele_m name
@@ -22,7 +22,7 @@ $act=array(
 // array(6,22,20,4,12,"accendi acqua sera"),
 // array(7,22,40,4,12,"spegni acqua sera"),
 // array(1,0,23,1,4,1,12,"acqua"),
-array(1,0,23,4,12,18,30,49,11,1,9,12,13,19,20,22,37,43,48,56,"natale"),
+array(1,0,23,4,12,18,30,49,11,1,12,13,19,20,21,22,37,43,48,56,"natale"),
 array(8,7,22,2,17,54,1,25,"campanello"),
 array(1,0,23,1,19,1,16,"cucina"),
 array(1,0,23,1,20,1,18,"barracucina"),
@@ -40,7 +40,7 @@ array(1,0,23,1,35,1,46,"luna_letto"),
 array(0,0,23,4,40,25,31,45,1,42,1,24,"gm&mts"),
 array(1,0,23,2,24,64,1,27,"gm_comodino"),
 array(1,0,23,1,41,1,28,"mts_comodino"),
-array(11,0,23,1,7,2,15,21,1,17,1,14,"barraliving"),
+array(11,0,23,1,7,2,9,15,1,17,1,14,"barraliving"),
 array(1,0,23,1,8,1,14,"barraTV"),
 array(1,0,23,1,23,2,13,11,"living piccola"),
 array(1,0,23,1,14,1,23,"ripostiglio"),
