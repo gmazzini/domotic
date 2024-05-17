@@ -15,7 +15,7 @@ else{
   $mysharedtext="";
   switch($in[2]){
     
-    case"status":
+    case "status":
     $mytext.="<b>Relay Status</b>\n";
     $count=0;
     for($r=0;$r<$totrele;$r++){
@@ -23,13 +23,13 @@ else{
         $mytext.=sprintf("%02d:<b style='color:red;'>1</b> ",$r);
         $count++;
       }
-      else$mytext.=sprintf("%02d:0 ",$r);
+      else $mytext.=sprintf("%02d:0 ",$r);
       if($r%8==7)$mytext.="\n";
     }
     $mytext.="Total On: <b>$count</b>\n";
     break;
     
-    case"keystatus":
+    case "keystatus":
     $mytext.="<b>Key Status</b>\n";
     $count=0;
     for($nn=0;$nn<64;$nn++){
@@ -37,23 +37,23 @@ else{
         $mytext.=sprintf("%02d:<b style='color:red;'>1</b> ",$nn);
         $count++;
       }
-      else$mytext.=sprintf("%02d:0 ",$nn);
+      else $mytext.=sprintf("%02d:0 ",$nn);
       if($nn%8==7)$mytext.="\n";
     }
     $mytext.="Total Pressed: <b>$count</b>\n";
     break;
     
-    case"keyoff":
+    case "keyoff":
     $mysharedtext.="\$keyoff=1;\n";
     $mytext.="Key set to off\n";
     break;
     
-    case"keyon":
+    case "keyon":
     $mysharedtext.="\$keyoff=0;\n";
     $mytext.="Keyset to on\n";
     break;
     
-    case"inject":
+    case "inject":
     $puls=(int)$in[3];
     $mysharedtext.="\$key_number[".$nkey."]=".$puls.";\n";
     $mysharedtext.="\$key_time[".$nkey."]=".mytime_up().";\n";
@@ -64,36 +64,36 @@ else{
     $mytext.="Inject key <b>$puls</b>\n";
     break;
     
-    case"set":
+    case "set":
     $mysharedtext.="myreleset(".(int)$in[3].",1);\n";
     $mytext.="Set rele <b>$in[3]</b>\n";
     break;
     
-    case"reset":
+    case "reset":
     $mysharedtext.="myreleset(".(int)$in[3].",0);\n";
     $mytext.="Reset rele <b>$in[3]</b>\n";
     break;
     
-    case"delete":
+    case "delete":
     $mysharedtext.="\$act[".(int)$in[3]."][0]=-1;\n";
     $mytext.="Delete rule <b>$in[3]</b>\n";
     break;
     
-    case"switchoff":
+    case "switchoff":
     for($r=0;$r<$totrele;$r++)$mysharedtext.="myreleset(".$r.",0);\n";
     $mytext.="Reset rele all\n";
     break;
     
-    case"rule":
+    case "rule":
     $mytext.=sprintf("<b>Rule list</b>\n");
     for($n=0;$n<$nact;$n++){
       switch($act[$n][0]){
         
-        case-1:
+        case -1:
         $mytext.=sprintf("Rule: %02d Type: <i>deleted</i>\n\n",$n);
         break;
         
-        case0:
+        case 0:
         $nn=$act[$n][3];
         $mm=$act[$n][4+$nn];
         $qq=$act[$n][5+$mm+$nn];
@@ -116,7 +116,7 @@ else{
         $mytext.="\n\n";
         break;
         
-        case11:
+        case 11:
         $nn=$act[$n][3];
         $mm=$act[$n][4+$nn];
         $qq=$act[$n][5+$mm+$nn];
@@ -129,27 +129,27 @@ else{
         $mytext.=sprintf("Relay_A #:%02d",$mm);
         for($cm=0;$cm<$mm;$cm++){
           if($rele[$act[$n][$cm+5+$nn]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cm,$act[$n][$cm+5+$nn]);
-          else$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+          else $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
         }
         $mytext.="\n";
         $mytext.=sprintf("Relay_B #:%02d",$qq);
         for($cq=0;$cq<$qq;$cq++){
           if($rele[$act[$n][$cq+6+$nn+$mm]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cq,$act[$n][$cq+6+$nn+$mm]);
-          else$mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
+          else $mytext.=sprintf(" %02d:%02d",$cq,$act[$n][$cq+6+$nn+$mm]);
         }
         $mytext.="\n";
         $mytext.=sprintf("Relay_C #:%02d",$vv);
         for($cv=0;$cv<$vv;$cv++){
           if($rele[$act[$n][$cv+7+$nn+$mm+$qq]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cv,$act[$n][$cv+7+$nn+$mm+$qq]);
-          else$mytext.=sprintf(" %02d:%02d",$cv,$act[$n][$cv+7+$nn+$mm+$qq]);
+          else $mytext.=sprintf(" %02d:%02d",$cv,$act[$n][$cv+7+$nn+$mm+$qq]);
         }
         $mytext.="\n\n";
         break;
         
-        case1:
-        case2:
-        case3:
-        case8:
+        case 1:
+        case 2:
+        case 3:
+        case 8:
         $nn=$act[$n][3];
         $mm=$act[$n][4+$nn];
         $mytext.=sprintf("Rule: %02d Type: <i>",$n);
@@ -165,7 +165,7 @@ else{
         $mytext.=sprintf("Relay #:%02d",$mm);
         for($cm=0;$cm<$mm;$cm++){
           if($rele[$act[$n][$cm+5+$nn]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cm,$act[$n][$cm+5+$nn]);
-          else$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+          else $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
         }
         $mytext.="\n\n";
         break;
@@ -181,7 +181,7 @@ else{
         $mytext.=sprintf("Relay #:%02d",$mm);
         for($cm=0;$cm<$mm;$cm++){
           if($rele[$act[$n][$cm+5+$nn]])$mytext.=sprintf(" %02d:<b style='color:red;'>%02d</b>",$cm,$act[$n][$cm+5+$nn]);
-          else$mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
+          else $mytext.=sprintf(" %02d:%02d",$cm,$act[$n][$cm+5+$nn]);
         }
         $mytext.="\n\n";
         break;
@@ -217,7 +217,7 @@ else{
     }
     break;
     
-    case"key":
+    case "key":
     $mytext.=sprintf("<b>Keys associations</b>\n");
     for($n=0;$n<72;$n++)$ww[$n]=0;
     for($n=0;$n<$nact;$n++){
@@ -238,14 +238,14 @@ else{
     }
     break;
     
-    case"relay":
+    case "relay":
     $mytext.=sprintf("<b>Relays associations</b>\n");
     for($n=0;$n<64;$n++)$ww[$n]=0;
     for($n=0;$n<$nact;$n++){
       $myaa=$act[$n][0];
       if($myaa==-1||$myaa==6||$myaa==7||$myaa==9)continue;
       switch($myaa){
-        case0:
+        case 0:
         $nn=$act[$n][3];
         $mm=$act[$n][4+$nn];
         $qq=$act[$n][5+$mm+$nn];
@@ -258,7 +258,7 @@ else{
           $www[$kk][$ww[$kk]]=$n;$ww[$kk]++;
         }
         break;
-        case11:
+        case 11:
         $nn=$act[$n][3];
         $mm=$act[$n][4+$nn];
         $qq=$act[$n][5+$mm+$nn];
@@ -276,10 +276,10 @@ else{
           $www[$kk][$ww[$kk]]=$n;$ww[$kk]++;
         }
         break;
-        case1:
-        case2:
-        case3:
-        case8:
+        case 1:
+        case 2:
+        case 3:
+        case 8:
         $nn=$act[$n][3];
         $mm=$act[$n][4+$nn];
         for($cm=0;$cm<$mm;$cm++){
@@ -287,7 +287,7 @@ else{
           $www[$kk][$ww[$kk]]=$n;$ww[$kk]++;
         }
         break;
-        case4:
+        case 4:
         $nn=$act[$n][3];
         $mm=$act[$n][4+$nn];
         for($cm=0;$cm<$mm;$cm++){
@@ -300,26 +300,26 @@ else{
     }
     for($n=0;$n<64;$n++){
       if($rele[$n])$mytext.=sprintf("Relay #:<b style='color:red;'>%02d</b>",$n);
-      else$mytext.=sprintf("Relay #:%02d",$n);
+      else $mytext.=sprintf("Relay #:%02d",$n);
       $nn=$ww[$n];
       for($cn=0;$cn<$nn;$cn++)$mytext.=sprintf(" %02d:%02d(%s)",$cn,$www[$n][$cn],end($act[$www[$n][$cn]]));
       $mytext.="\n";
     }
     break;
     
-    case"log":
+    case "log":
     $mytext.=sprintf("<b>Log of last $in[3] actions</b>\n");
     $fpout=popen("tail -r -n $in[3] $mylog",'r');
     while(!feof($fpout))$mytext.=fgets($fpout);
     pclose($fpout);
     break;
     
-    case"reload":
+    case "reload":
     $mysharedtext.="myconfig();\n";
     $mytext.="Load Rule_v:$config_version #rules:$nact\n";
     break;
     
-    case"help":
+    case "help":
     $mytext.="/passwd/status show the status\n";
     $mytext.="/passwd/keystatus show the keys status\n";
     $mytext.="/passwd/inject/n inject key n\n";
