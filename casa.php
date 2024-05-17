@@ -10,7 +10,7 @@
 // Conf 1=Input 0=Output 
 // device 5 BEM106 out on 10.0.0.32 48-55 set x=R-47 http://10.0.0.32/k0x=1 on http://10.0.0.32/k0x=0 off
 // device 6 BEM108 in on 10.0.0.33 48-55 http://10.0.0.33/getpara[189]=1&getpara[190]=1&getpara[191]=1&getpara[192]=1&getpara[193]=1&getpara[194]=1&getpara[195]=1&getpara[196]=1
-// device 7 BEM106 out on 10.0.0.34 56-63 set x=R-47 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0 off
+// device 7 BEM106 out on 10.0.0.34 56-63 set x=R-55 http://10.0.0.34/k0x=1 on http://10.0.0.34/k0x=0 off
 // device 8 BEM108 in on 10.0.0.35 56-63 http://10.0.0.35/getpara[189]=1&getpara[190]=1&getpara[191]=1&getpara[192]=1&getpara[193]=1&getpara[194]=1&getpara[195]=1&getpara[196]=1
 
 // virtualkey 64-71
