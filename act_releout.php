@@ -1,10 +1,11 @@
-//releoutondevice1234
+<?php
+// rele out on device 1234
 for($dev=0;$dev<4;$dev++){
   $q[0]=$q[1]=0;
   $v[0]=$v[1]=0;
   for($i=0;$i<12;$i++){
     if($i<8)$gr=0;
-    else$gr=1;
+    else $gr=1;
     $j=$i+$dev*12;
     if($rele[$j]!=$rele_old[$j]){
       fprintf($fplog,"out: %02d %01d %s\n",$j,$rele[$j],mytime_print($rele_time[$j]));
@@ -23,7 +24,7 @@ for($dev=0;$dev<4;$dev++){
   }
 }
 
-//releoutondevice5
+// rele out ondevice 5
 $mymsg1="";
 $myqr=0;
 for($j=48;$j<56;$j++){
@@ -41,7 +42,7 @@ if($myqr){
   socket_close($myso1);
 }
 
-//releoutondevice7
+// rele out on device 7
 $mymsg1="";
 $myqr=0;
 for($j=56;$j<64;$j++){
@@ -58,3 +59,4 @@ if($myqr){
   socket_write($myso1,$mymsg1,strlen($mymsg1));
   socket_close($myso1);
 }
+?>
