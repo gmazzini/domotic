@@ -1,8 +1,4 @@
 <?php
-
-$aux=trim(fread($conn,2048));
-
-$mytext="<html><body style='background-color:#F9F4B7'><pre>";
 $instart=strpos($aux,"GET")+4;
 $inlen=strpos($aux,"HTTP")-$instart-1;
 $mycmd=substr($aux,$instart,$inlen);
