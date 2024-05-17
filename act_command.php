@@ -14,6 +14,7 @@ else {
   $mytext.=" time_loop:$time_loop lastrefresh:".mytime_print($time_loop_lastrefresh)."</i>\n";
   $mysharedtext="";
   switch($in[2]){
+    
     case "status":
     $mytext.="<b>Relay Status</b>\n";
     $count=0;
@@ -34,43 +35,43 @@ else {
     for($nn=0;$nn<64;$nn++){
       if(key_checkstatus($nn)){
         $mytext.=sprintf("%02d:<b style='color:red;'>1</b> ",$nn);
-              $count++;
-            }
-            else $mytext.=sprintf("%02d:0 ",$nn);
-            if($nn%8==7)$mytext.="\n";
-          }
-          $mytext.="Total Pressed: <b>$count</b>\n";
-          break;
+        $count++;
+      }
+      else $mytext.=sprintf("%02d:0 ",$nn);
+      if($nn%8==7)$mytext.="\n";
+    }
+    $mytext.="Total Pressed: <b>$count</b>\n";
+    break;
+    
+    case "keyoff":
+    $mysharedtext.="\$keyoff=1;\n";
+    $mytext.="Key set to off\n";
+    break;
+    
+    case "keyon":
+    $mysharedtext.="\$keyoff=0;\n";
+    $mytext.="Keyset to on\n";
+    break;
           
-        case "keyoff":
-          $mysharedtext.="\$keyoff=1;\n";
-          $mytext.="Key set to off\n";
-          break;
+    case "inject":
+    $puls=(int)$in[3];
+    $mysharedtext.="\$key_number[".$nkey."]=".$puls.";\n";
+    $mysharedtext.="\$key_time[".$nkey."]=".mytime_up().";\n";
+    $mysharedtext.="\$key_state[".$nkey."]=1;\n";
+    $mysharedtext.="\$nkey++;\n";
+    $mysharedtext.="\$inject_key[".$inject_last."]=".$puls.";\n";
+    $mysharedtext.="\$inject_last++;\n";
+    $mytext.="Inject key <b>$puls</b>\n";
+    break;
           
-        case "keyon":
-          $mysharedtext.="\$keyoff=0;\n";
-          $mytext.="Keyset to on\n";
-          break;
+    case "set":
+    $mysharedtext.="myreleset(".(int)$in[3].",1);\n";
+    $mytext.="Set rele <b>$in[3]</b>\n";
+    break;
           
-        case "inject":
-          $puls=(int)$in[3];
-          $mysharedtext.="\$key_number[".$nkey."]=".$puls.";\n";
-          $mysharedtext.="\$key_time[".$nkey."]=".mytime_up().";\n";
-          $mysharedtext.="\$key_state[".$nkey."]=1;\n";
-          $mysharedtext.="\$nkey++;\n";
-          $mysharedtext.="\$inject_key[".$inject_last."]=".$puls.";\n";
-          $mysharedtext.="\$inject_last++;\n";
-          $mytext.="Inject key <b>$puls</b>\n";
-          break;
-          
-        case "set":
-          $mysharedtext.="myreleset(".(int)$in[3].",1);\n";
-          $mytext.="Set rele <b>$in[3]</b>\n";
-          break;
-          
-        case "reset":
-          $mysharedtext.="myreleset(".(int)$in[3].",0);\n";
-          $mytext.="Reset rele <b>$in[3]</b>\n";
+    case "reset":
+    $mysharedtext.="myreleset(".(int)$in[3].",0);\n";
+    $mytext.="Reset rele <b>$in[3]</b>\n";
           break;
           
         case "delete":
