@@ -1,4 +1,3 @@
-#!/usr/bin/php -q
 <?php
 
 // device 1 2 3 4 on 10.0.0.X with X=21 22 23 24 port 10001
@@ -17,7 +16,7 @@
 // virtualkey 64-71
 
 $casa_version="67";
-$mydir="/Users/gmazzini/Desktop/domotica/";
+$mydir="/home/gmazzini/casa/";
 
 // multiple output
 function multiout($port,$val){
