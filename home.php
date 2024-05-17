@@ -86,9 +86,7 @@ socket_close($myso2);
 $hhmm=mytime_hhmm();
 
 for(;;){
- 
   $nkey=0;
-  
   // key scan
   $inlow=multiin(0x47);
   $inhigh=multiin(0x44);
@@ -138,8 +136,6 @@ for(;;){
   $time_loop++;
   if($time_loop>$myloop){
     $time_loop=0;
-
-    
     $mytime_ref=time()-(int)(mytime_up()/100);
     $time_loop_lastrefresh=mytime_up();
     $hhmm=mytime_hhmm();
