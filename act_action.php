@@ -1,10 +1,11 @@
+<?php
 for($i=0;$i<$nkey;$i++)fprintf($fplog,"key: %02d %01d %s\n",$key_number[$i],$key_state[$i],mytime_print($key_time[$i]));
 //actionanalysis
 for($n=0;$n<$nact;$n++){
   switch($act[$n][0]){
     
-    //3level
-    case0:
+    // 3level
+    case 0:
     if($hhmm[0]<$act[$n][1]||$hhmm[0]>$act[$n][2])break;
     $nn=$act[$n][3];
     $mm=$act[$n][4+$nn];
@@ -50,8 +51,8 @@ for($n=0;$n<$nact;$n++){
     }
     break;
     
-    //3light
-    case11:
+    // 3light
+    case 11:
     if($hhmm[0]<$act[$n][1]||$hhmm[0]>$act[$n][2])break;
     $nn=$act[$n][3];
     $mm=$act[$n][4+$nn];
@@ -111,8 +112,8 @@ for($n=0;$n<$nact;$n++){
     }
     break;
     
-    //onoff
-    case1:
+    // onoff
+    case 1:
     if($hhmm[0]<$act[$n][1]||$hhmm[0]>$act[$n][2])break;
     $nn=$act[$n][3];
     $mm=$act[$n][4+$nn];
@@ -128,8 +129,8 @@ for($n=0;$n<$nact;$n++){
     }
     break;
     
-    //on
-    case2:
+    // on
+    case 2:
     if($hhmm[0]<$act[$n][1]||$hhmm[0]>$act[$n][2])break;
     $nn=$act[$n][3];
     $mm=$act[$n][4+$nn];
@@ -142,8 +143,8 @@ for($n=0;$n<$nact;$n++){
     }
     break;
     
-    //off
-    case3:
+    // off
+    case 3:
     if($hhmm[0]<$act[$n][1]||$hhmm[0]>$act[$n][2])break;
     $nn=$act[$n][3];
     $mm=$act[$n][4+$nn];
@@ -156,8 +157,8 @@ for($n=0;$n<$nact;$n++){
     }
     break;
     
-    //alloff
-    case4:
+    // alloff
+    case 4:
     if($hhmm[0]<$act[$n][1]||$hhmm[0]>$act[$n][2])break;
     $nn=$act[$n][3];
     $mm=$act[$n][4+$nn];
@@ -173,8 +174,8 @@ for($n=0;$n<$nact;$n++){
     }
     break;
     
-    //push
-    case8:
+    // push
+    case 8:
     if($hhmm[0]<$act[$n][1]||$hhmm[0]>$act[$n][2])break;
     $nn=$act[$n][3];
     $mm=$act[$n][4+$nn];
@@ -194,3 +195,4 @@ for($n=0;$n<$nact;$n++){
     break;
   }
 }
+?>
