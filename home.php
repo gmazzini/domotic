@@ -193,9 +193,9 @@ for(;;){
   // command analysis
   $conn=@stream_socket_accept($serv,0);
   if($conn!==false && pcntl_fork()==0){
-
+    $aux=trim(fread($conn,2048));
+    $mytext="<html><body style='background-color:#F9F4B7'><pre>";
     include "act_command.php";
-    
     $mytext.="</pre></body></html>";
     $myout="HTTP/1.1 200 OK\r\n";
     $myout.="Cache-Control: no-cache\r\n";
