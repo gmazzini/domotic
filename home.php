@@ -28,10 +28,8 @@ myconfig();
 fprintf($fplog,"Casa:$casa_version, Config:$config_version, #Rules:$nact, Creator GM\n");
 fprintf($fplog,"Starting on %s\n",mytime_print(mytime_up()));
 
-// open receive socket
+// open rcommunications
 $serv=stream_socket_server("tcp://10.0.0.4:3333");
-
-// open communications
 for($dev=0;$dev<4;$dev++){
   $ip=sprintf("10.0.0.%d",21+$dev);
   $fp[$dev]=fsockopen($ip,10001);
@@ -42,9 +40,7 @@ $myso10=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_connect($myso10,"10.0.0.35",5000);
 include "act_initialize.php";
 
-// actual time
 $hhmm=mytime_hhmm();
-
 for(;;){
   $nkey=0;
   // key scan
@@ -100,51 +96,7 @@ for(;;){
     $hhmm=mytime_hhmm();
     if($hhmm!=$hhmm_last){
       $hhmm_last=$hhmm;
-      for($n=0;$n<$nact;$n++){
-        switch($act[$n][0]){
-          
-          // offtimed
-          case 9:
-            if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2] || $rele[$act[$n][3]]==0)break;
-            if(mytime_up()-$rele_time[$act[$n][3]]>((int)$act[$n][4])*6000)myreleset($act[$n][3],0);
-            break;
-            
-          // offtimed_keysup
-          case 10:
-            if($hhmm[0]<$act[$n][1] || $hhmm[0]>$act[$n][2])break;
-            $nn=$act[$n][3];
-            if($rele[$act[$n][4+$nn]]==0)break;
-            $actp=0;
-            for($i=4;$i<4+$nn;$i++)if(key_checkstatus($act[$n][$i]))$actp=1;
-            if($actp)break;
-            if(mytime_up()-$rele_time[$act[$n][4+$nn]]>((int)$act[$n][5+$nn])*6000)myreleset($act[$n][4+$nn],0);
-            break;
-            
-          // injectifoff
-          case 6:
-            if($hhmm[0]!=$act[$n][1] || $hhmm[1]!=$act[$n][2] || $rele[$act[$n][4]]==1)break;
-            $puls=(int)$act[$n][3];
-            $key_number[$nkey]=$puls;
-            $key_time[$nkey]=mytime_up();
-            $key_state[$nkey]=1;
-            $nkey++;
-            $inject_key[$inject_last]=$puls;
-            $inject_last++;
-            break;
-            
-          // injectifon
-          case 7:
-            if($hhmm[0]!=$act[$n][1] || $hhmm[1]!=$act[$n][2] || $rele[$act[$n][4]]==0)break;
-            $puls=(int)$act[$n][3];
-            $key_number[$nkey]=$puls;
-            $key_time[$nkey]=mytime_up();
-            $key_state[$nkey]=1;
-            $nkey++;
-            $inject_key[$inject_last]=$puls;
-            $inject_last++;
-            break;
-        }
-      }
+      include "act_timed.php";
     }
   }
   
