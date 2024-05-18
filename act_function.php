@@ -6,14 +6,6 @@ function multiout($port,$val){
   usleep($mysleep);
 }
 
-// multiple input
-function multiin($port){
-  global $fp,$mysleep;
-  multiout($port,0x00);
-  for($dev=0;$dev<4;$dev++)$myin[$dev]=ord(fread($fp[$dev],1));
-  return $myin;
-}
-
 // key check status
 function key_checkstatus($mykey){
   global $inkey,$maskin,$keybasefordev,$keyassigneddev;
