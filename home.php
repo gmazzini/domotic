@@ -22,7 +22,6 @@ $keybasefordev=[0,12,24,36,48,56,64];
 unlink("$fileshared");
 touch("$fileshared");
 include "act_function.php";
-
 myconfig();
 
 // Welcome
@@ -32,55 +31,16 @@ fprintf($fplog,"Starting on %s\n",mytime_print(mytime_up()));
 // open receive socket
 $serv=stream_socket_server("tcp://10.0.0.4:3333");
 
-// open communications to 4 devices
+// open communications
 for($dev=0;$dev<4;$dev++){
   $ip=sprintf("10.0.0.%d",21+$dev);
   $fp[$dev]=fsockopen($ip,10001);
-  if($fp[$dev]==NULL){
-    exit(-1);
-  }
-  sleep(1);
 }
-
-// open communications with BEM106 6 and 8
 $myso9=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_connect($myso9,"10.0.0.33",5000);
 $myso10=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_connect($myso10,"10.0.0.35",5000);
-
-// data initialization
-for($r=0;$r<$totrele;$r++){
-  $rele_old[$r]=0;
-  $rele[$r]=0;
-  $rete_time[$r]=mytime_up();
-}
-for($j=0;$j<12;$j++)$maskin[$j]=pow(2,$j);
-for($dev=0;$dev<$totkeydev;$dev++)$oldin[$dev]=65535;
-for($i=0;$i<72;$i++){
-  $key_last0[$i]=0.0;
-  $key_last1[$i]=0.0;
-  for($j=$totkeydev;$j>0;$j--)if($i>=$keybasefordev[$j])break;
-  $keyassigneddev[$i]=$j;
-}
-
-// card initialization
-multiout(0x42,0x00);
-multiout(0x45,0x0f);
-multiout(0x48,0xff);
-multiout(0x43,0x00);
-multiout(0x46,0x00);
-multiout(0x4a,0x00);
-$myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-socket_connect($myso1,"10.0.0.32",5000);
-$myso2=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-socket_connect($myso2,"10.0.0.34",5000);
-for($j=48;$j<56;$j++){
-  $mymsg1="k0".chr($j+1)."=0;";
-  socket_write($myso1,$mymsg1,strlen($mymsg1));
-  socket_write($myso2,$mymsg1,strlen($mymsg1));
-}
-socket_close($myso1);
-socket_close($myso2);
+include "act_initialize.php";
 
 // actual time
 $hhmm=mytime_hhmm();
@@ -101,10 +61,9 @@ for(;;){
   $aux=socket_read($myso10,1000);
   $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs << 1)+1-((int)substr($aux,15+17*$ii,1));
   $inkey[5]=$zs;
-  
-  if($keyoff==1)$inkey=$oldin;
 
   // key analysis
+  if($keyoff==1)$inkey=$oldin;
   for($dev=0;$dev<$totkeydev;$dev++){
     $diff=$inkey[$dev] ^ $oldin[$dev];
     if($diff){
