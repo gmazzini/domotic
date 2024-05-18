@@ -44,8 +44,10 @@ $hhmm=mytime_hhmm();
 for(;;){
   $nkey=0;
   // key scan
-  $inlow=multiin(0x47);
-  $inhigh=multiin(0x44);
+  multiout(0x047,0x00);
+  for($dev=0;$dev<4;$dev++)$inlow[$dev]=ord(fread($fp[$dev],1));
+  multiout(0x044,0x00);
+  for($dev=0;$dev<4;$dev++)$inhigh[$dev]=ord(fread($fp[$dev],1));
   for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
   $mymsg1="getpara[189]=1;getpara[190]=1;getpara[191]=1;getpara[192]=1;getpara[193]=1;getpara[194]=1;getpara[195]=1;getpara[196]=1;";
   $mymsg2="getpara[196]=1;getpara[195]=1;getpara[194]=1;getpara[193]=1;getpara[192]=1;getpara[191]=1;getpara[190]=1;getpara[189]=1;";
