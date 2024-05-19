@@ -29,7 +29,7 @@ fprintf($fplog,"Casa:$casa_version, Config:$config_version, #Rules:$nact, Creato
 fprintf($fplog,"Starting on %s\n",mytime_print(mytime_up()));
 
 // open rcommunications
-$serv=stream_socket_server("tcp://10.0.0.4:3333");
+$serv=stream_socket_server("tcp://10.0.0.8:3333");
 for($dev=0;$dev<4;$dev++){
   $ip=sprintf("10.0.0.%d",21+$dev);
   $fp[$dev]=fsockopen($ip,10001);
