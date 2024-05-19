@@ -1,10 +1,4 @@
 <?php
-// multiple output
-function multiout($port,$val){
-  global $fp,$mysleep;
-  for($dev=0;$dev<4;$dev++)fwrite($fp[$dev],chr($port).chr($val),2);
-  usleep($mysleep);
-}
 
 // key check status
 function key_checkstatus($mykey){
