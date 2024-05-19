@@ -28,12 +28,9 @@ myconfig();
 fprintf($fplog,"Casa:$casa_version, Config:$config_version, #Rules:$nact, Creator GM\n");
 fprintf($fplog,"Starting on %s\n",mytime_print(mytime_up()));
 
-// open rcommunications
+// open communications
 $serv=stream_socket_server("tcp://10.0.0.8:3333");
-for($dev=0;$dev<4;$dev++){
-  $ip=sprintf("10.0.0.%d",21+$dev);
-  $fp[$dev]=fsockopen($ip,10001);
-}
+for($dev=0;$dev<4;$dev++)$mysock[$dev]=fsockopen(sprintf("10.0.0.%d",21+$dev),10001);
 $myso9=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_connect($myso9,"10.0.0.33",5000);
 $myso10=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
@@ -44,10 +41,12 @@ $hhmm=mytime_hhmm();
 for(;;){
   $nkey=0;
   // key scan
-  multiout(0x047,0x00);
-  for($dev=0;$dev<4;$dev++)$inlow[$dev]=ord(fread($fp[$dev],1));
-  multiout(0x044,0x00);
-  for($dev=0;$dev<4;$dev++)$inhigh[$dev]=ord(fread($fp[$dev],1));
+  for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x047).chr(0x00),2);
+  usleep($mysleep);
+  for($dev=0;$dev<4;$dev++)$inlow[$dev]=ord(fread($mysock[$dev],1));
+  for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x044).chr(0x00),2);
+  usleep($mysleep);
+  for($dev=0;$dev<4;$dev++)$inhigh[$dev]=ord(fread($mysock[$dev],1));
   for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
   $mymsg1="getpara[189]=1;getpara[190]=1;getpara[191]=1;getpara[192]=1;getpara[193]=1;getpara[194]=1;getpara[195]=1;getpara[196]=1;";
   $mymsg2="getpara[196]=1;getpara[195]=1;getpara[194]=1;getpara[193]=1;getpara[192]=1;getpara[191]=1;getpara[190]=1;getpara[189]=1;";
