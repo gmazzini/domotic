@@ -31,10 +31,10 @@ fprintf($fplog,"Starting on %s\n",mytime_print(mytime_up()));
 // open communications
 $serv=stream_socket_server("tcp://10.0.0.8:3333");
 for($dev=0;$dev<4;$dev++)$mysock[$dev]=fsockopen(sprintf("10.0.0.%d",21+$dev),10001);
-$myso9=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-socket_connect($myso9,"10.0.0.33",5000);
-$myso10=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-socket_connect($myso10,"10.0.0.35",5000);
+$mysock[4]=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+socket_connect($mysock[4],"10.0.0.33",5000);
+$mysock[5]=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+socket_connect($mysock[5],"10.0.0.35",5000);
 include "act_initialize.php";
 
 $hhmm=mytime_hhmm();
@@ -48,16 +48,15 @@ for(;;){
   usleep($mysleep);
   for($dev=0;$dev<4;$dev++)$inhigh[$dev]=ord(fread($mysock[$dev],1));
   for($dev=0;$dev<4;$dev++)$inkey[$dev]=($inlow[$dev] & 0xff) | (($inhigh[$dev] & 0x0f) << 8);
-  $mymsg1="getpara[189]=1;getpara[190]=1;getpara[191]=1;getpara[192]=1;getpara[193]=1;getpara[194]=1;getpara[195]=1;getpara[196]=1;";
-  $mymsg2="getpara[196]=1;getpara[195]=1;getpara[194]=1;getpara[193]=1;getpara[192]=1;getpara[191]=1;getpara[190]=1;getpara[189]=1;";
-  socket_write($myso9,$mymsg1,strlen($mymsg1));
-  socket_write($myso10,$mymsg2,strlen($mymsg2));
-  $aux=socket_read($myso9,1000);
-  $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs << 1)+1-((int)substr($aux,15+17*$ii,1));
-  $inkey[4]=$zs;
-  $aux=socket_read($myso10,1000);
-  $zs=0;for($ii=0;$ii<8;$ii++)$zs=($zs << 1)+1-((int)substr($aux,15+17*$ii,1));
-  $inkey[5]=$zs;
+  $mymsg[4]="getpara[189]=1;getpara[190]=1;getpara[191]=1;getpara[192]=1;getpara[193]=1;getpara[194]=1;getpara[195]=1;getpara[196]=1;";
+  $mymsg[5]="getpara[196]=1;getpara[195]=1;getpara[194]=1;getpara[193]=1;getpara[192]=1;getpara[191]=1;getpara[190]=1;getpara[189]=1;";
+  for($dev=4;$dev<6;$dev++){
+    socket_write($mysock[$dev],$mymsg[$dev],strlen($mymsg[$dev]));
+    $aux=socket_read($mysock[$dev],1000);
+    $zs=0;
+    for($ii=0;$ii<8;$ii++)$zs=($zs << 1)+1-((int)substr($aux,15+17*$ii,1));
+    $inkey[$dev]=$zs;
+  }
 
   // key analysis
   if($keyoff==1)$inkey=$oldin;
