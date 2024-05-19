@@ -15,11 +15,11 @@ for($dev=0;$dev<4;$dev++){
     $rele_old[$j]=$rele[$j];
   }
   if($q[0]){
-    fwrite($fp[$dev],chr(0x43).chr($v[0]),2);
+    fwrite($mysock[$dev],chr(0x43).chr($v[0]),2);
     usleep($mysleep);
   }
   if($q[1]){
-    fwrite($fp[$dev],chr(0x46).chr($v[1]),2);
+    fwrite($mysock[$dev],chr(0x46).chr($v[1]),2);
     usleep($mysleep);
   }
 }
