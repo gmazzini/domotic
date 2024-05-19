@@ -15,9 +15,12 @@ for($i=0;$i<72;$i++){
 }
 
 // card initialization
-multiout(0x42,0x00);
-multiout(0x45,0x0f);
-multiout(0x48,0xff);
+for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x42).chr(0x00),2);
+usleep($mysleep);
+for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x45).chr(0x0f),2);
+usleep($mysleep);
+for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x48).chr(0xff),2);
+usleep($mysleep);
 $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
 socket_connect($myso1,"10.0.0.32",5000);
 $myso2=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
@@ -29,7 +32,10 @@ for($j=48;$j<56;$j++){
 }
 socket_close($myso1);
 socket_close($myso2);
-multiout(0x43,0x00);
-multiout(0x46,0x00);
-multiout(0x4a,0x00);
+for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x43).chr(0x00),2);
+usleep($mysleep);
+for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x46).chr(0x00),2);
+usleep($mysleep);
+for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x4a).chr(0x00),2);
+usleep($mysleep);
 ?>
