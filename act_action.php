@@ -123,7 +123,7 @@ for($n=0;$n<$nact;$n++){
           $actk=0;
           for($k=5+$nn;$k<5+$nn+$mm;$k++)$actk+=$rele[$act[$n][$k]];
           if($actk!=$mm)for($k=5+$nn;$k<5+$nn+$mm;$k++)myreleset($act[$n][$k],1);
-          elsefor($k=5+$nn;$k<5+$nn+$mm;$k++)myreleset($act[$n][$k],0);
+          else for($k=5+$nn;$k<5+$nn+$mm;$k++)myreleset($act[$n][$k],0);
         }
       }
     }
