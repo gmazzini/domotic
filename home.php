@@ -11,7 +11,6 @@ $time_loop=0;
 $time_loop_lastrefresh=0;
 $inject_last=0;
 $threelevels_time=500;
-$mytime_ref=time()-(int)(mytime_up()/100);
 $hhmm_last=0;
 $totrele=64;
 $totkeydev=6;
@@ -22,6 +21,7 @@ $keybasefordev=[0,12,24,36,48,56,64];
 unlink("$fileshared");
 touch("$fileshared");
 include "act_function.php";
+$mytime_ref=time()-(int)(mytime_up()/100);
 myconfig();
 
 // Welcome
