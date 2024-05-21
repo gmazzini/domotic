@@ -24,7 +24,7 @@ for($dev=0;$dev<4;$dev++){
   }
 }
 
-// rele out ondevice 5
+// rele out on device 6
 $mymsg1="";
 $myqr=0;
 for($j=48;$j<56;$j++){
@@ -36,10 +36,10 @@ for($j=48;$j<56;$j++){
   }
 }
 if($myqr){
-  $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-  socket_connect($myso1,"10.0.0.32",5000);
-  socket_write($myso1,$mymsg1,strlen($mymsg1));
-  socket_close($myso1);
+  $mysock[6]=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+  socket_connect($mysock[6],"10.0.0.32",5000);
+  socket_write($mysock[6],$mymsg1,strlen($mymsg1));
+  socket_close($mysock[6]);
 }
 
 // rele out on device 7
@@ -54,9 +54,9 @@ for($j=56;$j<64;$j++){
   }
 }
 if($myqr){
-  $myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-  socket_connect($myso1,"10.0.0.34",5000);
-  socket_write($myso1,$mymsg1,strlen($mymsg1));
-  socket_close($myso1);
+  $mysock[7]=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+  socket_connect($mysock[7],"10.0.0.34",5000);
+  socket_write($mysock[7],$mymsg1,strlen($mymsg1));
+  socket_close($mysock[7]);
 }
 ?>
