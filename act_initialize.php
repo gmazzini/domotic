@@ -21,17 +21,18 @@ for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x45).chr(0x0f),2);
 usleep($mysleep);
 for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x48).chr(0xff),2);
 usleep($mysleep);
-$myso1=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-socket_connect($myso1,"10.0.0.32",5000);
-$myso2=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
-socket_connect($myso2,"10.0.0.34",5000);
+$mysock[6]=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+socket_connect($mysock[6],"10.0.0.32",5000);
+$mysock[7]=socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+socket_connect($mysock[7],"10.0.0.34",5000);
 for($j=48;$j<56;$j++){
   $mymsg1="k0".chr($j+1)."=0;";
-  socket_write($myso1,$mymsg1,strlen($mymsg1));
-  socket_write($myso2,$mymsg1,strlen($mymsg1));
+  socket_write($mysock[6],$mymsg1,strlen($mymsg1));
+  socket_write($mysock[7],$mymsg1,strlen($mymsg1));
+  usleep($mysleep);
 }
-socket_close($myso1);
-socket_close($myso2);
+socket_close($mysock[6]);
+socket_close($mysock[7]);
 for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x43).chr(0x00),2);
 usleep($mysleep);
 for($dev=0;$dev<4;$dev++)fwrite($mysock[$dev],chr(0x46).chr(0x00),2);
