@@ -1,5 +1,5 @@
 <?php
-$casa_version="67";
+$casa_version="68";
 $mydir="/home/gmazzini/casa/";
 date_default_timezone_set("Europe/Rome");
 $mylog=$mydir."mylog";
