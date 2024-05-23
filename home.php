@@ -113,7 +113,7 @@ for(;;){
     $myout.="Content-Length: ".strlen($mytext)."\r\n";
     $myout.="Connection: Close\r\n";
     $myout.="\r\n$mytext";
-    fwrite($conn,$myout);
+    fwrite($conn,$myout,strlen($myout));
     fclose($conn);
     exit(0);
   }
